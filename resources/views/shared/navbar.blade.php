@@ -39,7 +39,7 @@
 					<li><a href="/subscriptions/index/<?php echo date("Y");?>"">List Rates</a></li>
 					</ul>
 				</li>				
-                <li><a href="/Payment/pending/<?php echo date("Y");?>">Pending Payment</a></li>				
+                <li><a href="/Payment/jamathPending">Pending Payment</a></li>				
 			</ul>				
 			<ul class="nav navbar-nav navbar-right">                
 				<li class="dropdown">

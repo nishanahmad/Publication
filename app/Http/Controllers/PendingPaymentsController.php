@@ -12,6 +12,7 @@ use App\Majlis;
 use App\Subscription;
 use App\SubscriptionType;
 use App\Receipt;
+use App\JamathReceipt;
 
 class PendingPaymentsController extends Controller
 {
@@ -22,90 +23,85 @@ class PendingPaymentsController extends Controller
 		//$this->middleware('admin', ['only' => ['create']]);
     } 	
 	
-    public function index($year)
+    public function jamathIndex()
     {
-		$subscriptionIds = array();
-		$subsciptionsDetail = array();
-		$memberIds = array();
-		$membersDetail = array();
-		$mainList = array();
-		
-		$yearList = Subscription::where('magazine',Auth::user()->magazine_type)
-						->distinct('year')
-						->orderBy('year')
-						->pluck('year');
-		
-		if($year != 'All')
-			$subscriptions =  Subscription::where('magazine',Auth::user()->magazine_type)->where('year',$year)->get();			
-		else
-			$subscriptions =  Subscription::where('magazine',Auth::user()->magazine_type)->get();						
-		
+		$subscriptions = Subscription::All();
 		foreach($subscriptions as $subscription)
-		{
-			$subscriptionIds[] = $subscription -> id;
-			$subsciptionsDetail[$subscription -> id] = array('type'=>$subscription -> type,'year'=>$subscription -> year, 'rate'=> $subscription -> rate);
-		}
+			$rateMap[$subscription['id']] = $subscription['rate'];
 		
-		$memberSubscriptions = MemberSubscription::whereIn('subscription_id',$subscriptionIds)->get();
+		$members = Member::All();
+		foreach($members as $member)
+			$memberMap[$member['id']] = $member['majlis']; 
+
+		$memberSubscriptions = MemberSubscription::All();
 		foreach($memberSubscriptions as $memberSubscription)
 		{
-			$memberIds[] = $memberSubscription->member_id;
-		}
+			if(isset($pendingMap[$memberMap[$memberSubscription['member_id']]]))
+				$pendingMap[$memberMap[$memberSubscription['member_id']]] = $pendingMap[$memberMap[$memberSubscription['member_id']]] + $rateMap[$memberSubscription['subscription_id']];
+			else
+				$pendingMap[$memberMap[$memberSubscription['member_id']]] = $rateMap[$memberSubscription['subscription_id']];
+		}		
 		
-		$members = Member::whereIn('id',$memberIds)->get();
+		$receipts = Receipt::All();
+		foreach($receipts as $receipt)
+			$pendingMap[$memberMap[$receipt['member_id']]] = $pendingMap[$memberMap[$receipt['member_id']]] - $receipt['amount'];
+
+		$jamathReceipts = JamathReceipt::All();
+		foreach($jamathReceipts as $jamathReceipt)
+		{
+			if(isset($unaccountedMap[$jamathReceipt['jamath']]))
+				$unaccountedMap[$jamathReceipt['jamath']] = $unaccountedMap[$jamathReceipt['jamath']] + $jamathReceipt['amount'];
+			else
+				$unaccountedMap[$jamathReceipt['jamath']] = $jamathReceipt['amount'];
+		}
+
+		$jamathList = Majlis::All();
+		foreach($jamathList as $jamath)
+		{
+			if(!isset($pendingMap[$jamath -> name]))
+				$pendingMap[$jamath -> name] = 0;
+			if(!isset($unaccountedMap[$jamath -> name]))
+				$unaccountedMap[$jamath -> name] = 0;			
+		}
+								
+		return view('pendingPayment/jamathList',compact('pendingMap','unaccountedMap','jamathList')); 
+	}
+	
+    public function memberIndex($jamath)
+    {
+		$members = Member::where('majlis',$jamath)->get();
 		foreach($members as $member)
 		{
-			$membersDetail[$member -> id] = array('name'=>$member -> name,'majlis'=>$member -> majlis);
-		}	
+			$memberMap[$member['id']] = $member['name'];			
+			//$memberIds[] = $member['id'];
+		}
+
+			
+		$subscriptions = Subscription::All();
+		foreach($subscriptions as $subscription)
+			$rateMap[$subscription['id']] = $subscription['rate'];
+			
+		//$memberIds =  Member::where('majlis',$jamath)->pluck('id');						
 		
+		$memberSubscriptions = MemberSubscription::whereIn('member_id',array_keys($memberMap))->get();
 		foreach($memberSubscriptions as $memberSubscription)
 		{
-			if(Auth::user()->admin)    // insert members of all majlis for admin
-			{
-				$mainList[$memberSubscription->member_id]['name'] = $membersDetail[$memberSubscription->member_id]['name'];
-				$mainList[$memberSubscription->member_id]['majlis'] = $membersDetail[$memberSubscription->member_id]['majlis'];				
-				if(isset($mainList[$memberSubscription->member_id]['rate']))
-					$mainList[$memberSubscription->member_id]['rate'] = $mainList[$memberSubscription->member_id]['rate'] + $subsciptionsDetail[$memberSubscription->subscription_id]['rate'];				
-				else
-					$mainList[$memberSubscription->member_id]['rate'] =  $subsciptionsDetail[$memberSubscription->subscription_id]['rate'];				
-			}	
+			if(isset($pendingMap[$memberSubscription['member_id']]))
+				$pendingMap[$memberSubscription['member_id']] = $pendingMap[$memberSubscription['member_id']] + $rateMap[$memberSubscription['subscription_id']];
 			else
-			{
-				if($membersDetail[$memberSubscription->member_id]['majlis'] == Auth::user()->majlis && $subsciptionsDetail[$memberSubscription->subscription_id]['type'] != 'Sponsorship')
-				{
-					$mainList[$memberSubscription->member_id]['name'] = $membersDetail[$memberSubscription->member_id]['name'];
-					$mainList[$memberSubscription->member_id]['majlis'] = $membersDetail[$memberSubscription->member_id]['majlis'];				
-					if(isset($mainList[$memberSubscription->member_id]['rate']))
-						$mainList[$memberSubscription->member_id]['rate'] = $mainList[$memberSubscription->member_id]['rate'] + $subsciptionsDetail[$memberSubscription->subscription_id]['rate'];				
-					else
-						$mainList[$memberSubscription->member_id]['rate'] =  $subsciptionsDetail[$memberSubscription->subscription_id]['rate'];				
-				}	
-			}	
+				$pendingMap[$memberSubscription['member_id']] = $rateMap[$memberSubscription['subscription_id']];
 		}		
-
-		if($year != 'All')
+		
+		$receipts = Receipt::whereIn('member_id',array_keys($memberMap))->get();
+		//dd($receipts);
+		foreach($receipts as $receipt)
 		{
-			$receipts = Receipt::groupBy('member_id')
-						->selectRaw('sum(amount) as sum, member_id')
-						->where('year',$year)
-						->pluck('sum','member_id');				
-		}	
-		else
-		{
-			$receipts = Receipt::groupBy('member_id')
-						->selectRaw('sum(amount) as sum, member_id')
-						->pluck('sum','member_id');							
-		}	
-
-	
- 		foreach($receipts as $member => $amount)
-		{
-			if(isset($mainList[$member]))
-				$mainList[$member]['rate'] = $mainList[$member]['rate'] - $amount;								
-				
+			$pendingMap[$receipt['member_id']] = $pendingMap[$receipt['member_id']] - $receipt['amount'];
 		}
-		return view('pendingPayment',compact('mainList','yearList')); 
-    }
+		
+		return view('pendingPayment/memberList',compact('pendingMap','memberMap')); 		
+	}		
+
 
     public function show($id)
     {

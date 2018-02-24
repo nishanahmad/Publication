@@ -47,7 +47,6 @@ class JamathReceiptController extends Controller
     public function store(Request $request)
     {		
         $jamathReceipt = new JamathReceipt(array(
-			'date' => date("Y-m-d"),
             'jamath' => $request->get('jamath'),
             'amount' => $request->get('amount')
         ));

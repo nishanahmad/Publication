@@ -44,7 +44,9 @@ Route::get('/JamathReceipts/create','JamathReceiptController@create');
 Route::post('/JamathReceipts/create','JamathReceiptController@store');
 
 Route::get('Majlis/getMembers/{id}',array('as'=>'majlis.getMembers','uses'=>'MembersController@membersAjax'));
-Route::get('Payment/pending/{year}','PendingPaymentsController@index');
+
+Route::get('Payment/memberPending/{jamath}','PendingPaymentsController@memberIndex');
+Route::get('Payment/jamathPending','PendingPaymentsController@jamathIndex');
 
 Route::get('Test','TestController@test');
 
