@@ -13,7 +13,7 @@
     <div class="container col-md-6 col-md-offset-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2> Pending Payment of INSERT JAMATH NAME HERE</h2>
+                    <h2> Pending Payment of {{$jamath}}</h2>
                 </div>
 				
 				@if (session('status'))
@@ -24,7 +24,7 @@
 
                 @if (empty($pendingMap))
 					<br>	
-                    <p> There is no Subscription entered for INSERT JAMATH NAME HERE</p>
+                    <p> There is no Subscription entered for {{$jamath}}</p>
 					<br><br>
                 @else				
 					<div align="center">
@@ -36,14 +36,18 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Pending Amount</th>
+                                <th>Subscription Amount</th>
+								<th>Paid Amount</th>
+								<th>Balance</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($pendingMap as $memberId => $amount)
+                            @foreach($pendingMap as $memberId => $sub_amount)
                                 <tr>
                                     <td><a href="{{ URL::to('member/'.$memberId)}}">{{ $memberMap[$memberId] }}</a></td>
-                                    <td>{{ $amount }} </td>
+                                    <td>{{ $sub_amount }} </td>
+									<td>{{ $paidMap[$memberId] }} </td>
+									<td>{{ $sub_amount - $paidMap[$memberId] }} </td>
                                 </tr>
                             @endforeach
                         </tbody>

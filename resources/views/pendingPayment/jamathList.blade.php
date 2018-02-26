@@ -36,9 +36,10 @@
                         <thead>
                             <tr>
                                 <th>Jamath</th>
-                                <th style="width:20%">Pending Amount</th>
-								<th style="width:20%">Bulk Paid</th>
-								<th style="width:20%">Balance</th>
+                                <th style="width:17.5%">Subscription Amount</th>
+								<th style="width:17.5%">Paid Amount</th>
+								<th style="width:17.5%">Bulk Paid</th>
+								<th style="width:17.5%">Balance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,8 +47,9 @@
                                 <tr>
 									<td><a href="/Payment/memberPending/{{ $jamath -> name }}">{{ $jamath -> name }} </td>
 									<td>{{ $pendingMap[$jamath -> name] }} </td>
+									<td>{{ $paidMap[$jamath -> name] }} </td>
 									<td>{{ $unaccountedMap[$jamath -> name] }} </td>
-									<td>{{ $pendingMap[$jamath -> name] - $unaccountedMap[$jamath -> name]}}</td>
+									<td>{{ $pendingMap[$jamath -> name] - $paidMap[$jamath -> name] - $unaccountedMap[$jamath -> name]}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
