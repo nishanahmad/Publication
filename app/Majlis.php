@@ -17,4 +17,9 @@ class Majlis extends Model
 	{
 		return $this->hasMany('App\Member', 'id');
 	}
+	
+	public function houses()
+	{
+		return $this->hasMany('App\House', 'id');
+	}	
 }

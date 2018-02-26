@@ -14,6 +14,11 @@ class Member extends Model
         return $this->belongsTo('App\Majlis');
     }
 	
+    public function house()
+    {
+        return $this->belongsTo('App\House');
+    }	
+	
     public function subscriptions()
     {	
         $membersubscriptions = $this->hasMany('App\MemberSubscription')->get();
