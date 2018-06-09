@@ -26,8 +26,8 @@ class MemberFormRequest extends FormRequest
         return [
 			'name' => 'required|min:4',
 			'mobile'=> 'digits:10|nullable',
-			'majlis'=> 'required',
-			'address1'=> 'required',
+			'jamath_id'=> 'required',
+			'address1'=> 'nullable',
 			'rms'=> 'nullable',
 			'email'=> 'email|nullable',
         ];

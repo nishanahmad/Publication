@@ -27,12 +27,12 @@
                     <legend>New Jamath Receipt</legend>
 					
 					<div class="form-group">
-                        <label for="jamath" class="col-lg-2 control-label">Jamath</label>
+                        <label for="jamath_id" class="col-lg-2 control-label">Jamath</label>
                         <div class="col-lg-10">
-							<select class="form-control" id="jamath" name="jamath" required>
+							<select class="form-control" id="jamath_id" name="jamath_id" required>
 								<option value=""></option>
 								@foreach ($jamathList->all() as $jamath)
-									<option  value="{{ $jamath -> name }}">{{ $jamath -> name }}</option>
+									<option  value="{{ $jamath -> id }}">{{ $jamath -> name }}</option>
 								@endforeach
 							</select>
                         </div>

@@ -1,11 +1,11 @@
 @extends('master')
-@section('title', 'Pending')
+@section('title', 'View all Subscriptions')
 @section('content')
 
-    <div class="container col-md-8 col-md-offset-1">
+    <div class="container col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2> Annual rates of {{ substr(Request::url(), -4) }}</h2>
+                    <h2> Subscription list of {{ substr(Request::url(), -4) }}</h2>					
                 </div>
 				
 				@if (session('status'))
@@ -14,9 +14,9 @@
 				</div>
 				@endif
 
-                @if (empty($subscriptions))
+                @if (empty($mainList))
 					<div align="center">
-					<select name="year" id="year" onchange="document.location.href = '/MemberSubscriptions/index/' + this.value">
+					<select name="year" id="year" onchange="document.location.href = '/Subscriptions/index/' + this.value">
                     @foreach($yearList as $year)
 						@if( substr(Request::url(), -4) == $year)
 							<option  value="{{ $year }}" selected >{{ $year }}</option>
@@ -25,15 +25,13 @@
 						@endif
 					@endforeach		
 					</select>
-					<br><br>
 					</div>
-					<p> There is no rate updated for the selected year.<br><br></p>
-                    
+					<br><br>
+					<p> There is no Subscription entered for the selected year.<br><br></p>				
                 @else				
 					<div align="center">
-					<select name="year" id="year" onchange="document.location.href = '/subscriptions/index/' + this.value">
-                    <option  value="All" selected >ALL</option>
-					@foreach($yearList as $year)
+					<select name="year" id="year" onchange="document.location.href = '/Subscriptions/index/' + this.value">
+                    @foreach($yearList as $year)
 						@if( substr(Request::url(), -4) == $year)
 							<option  value="{{ $year }}" selected >{{ $year }}</option>
 						@else
@@ -41,25 +39,31 @@
 						@endif
 					@endforeach		
 					</select>
+					</div>
 					<table class="table">
                         <thead>
                             <tr>
-                                <th>Subscription Type</th>
-                                <th>Year</th>
-                                <th>Rate</th>
+								<th style="text-align:center">SubId</th>
+								<th>Member Code</th>
+                                <th>Name</th>
+                                <th>Jamath</th>
+								<th>Start Month</th>
+								<th>End Month</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($subscriptions as $subscription)
+                            @foreach($mainList as $row )
                                 <tr>
-                                    <td>{{ $subscription -> type }} </td>
-									<td>{{ $subscription -> year }} </td>
-                                    <td>{{ $subscription -> rate }} </td>
+									<td style="text-align:center"><a href="{{ URL::to('Subscription/'.$row['id'])}}">{{ $row['id'] }}</a></td>
+									<td>{{ $row['code'] }} </td>
+                                    <td>{{ $row['name'] }} </td>
+									<td>{{ $row['jamath'] }} </td>
+									<td>{{ $row['start_month'] }} </td>
+									<td>{{ $row['end_month'] }} </td>
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>					
-					</div>
+                    </table>
                 @endif
             </div>
     </div>

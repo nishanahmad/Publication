@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use App\JamathReceipt;
-use App\Majlis;
+use App\Jamath;
 
 class JamathReceiptController extends Controller
 {
@@ -33,7 +33,7 @@ class JamathReceiptController extends Controller
      */
     public function create()
     {
-		$jamathList = Majlis::all();
+		$jamathList = Jamath::all();
 		
 		return view('jamathReceipts.create',compact('jamathList'));
     }
@@ -47,7 +47,7 @@ class JamathReceiptController extends Controller
     public function store(Request $request)
     {		
         $jamathReceipt = new JamathReceipt(array(
-            'jamath' => $request->get('jamath'),
+            'jamath_id' => $request->get('jamath_id'),
             'amount' => $request->get('amount')
         ));
 		try{

@@ -32,24 +32,25 @@
                     </div>
 					
 					<div class="form-group">
-                        <label for="majlis" class="col-lg-2 control-label">Jamath</label>
+                        <label for="jamath" class="col-lg-2 control-label">Jamath</label>
                         <div class="col-lg-10">
-							<select class="form-control" id="majlis" name="majlis" required value="{{old('majlis')}}">
+							<select class="form-control" id="jamath_id" name="jamath_id" required value="{{old('jamath_id')}}">
 								<option value=""></option>
-								@foreach ($majlisList->all() as $majlis)
-									@if(old('majlis') == $majlis -> name)
-										<option  value="{{ $majlis -> name }}" selected>{{ $majlis -> name }}</option>
+								@foreach ($jamathList->all() as $jamath)
+									@if(old('jamath_id') == $jamath -> id)
+										<option  value="{{ $jamath -> id }}" selected>{{ $jamath -> name }}</option>
 									@else
-										<option  value="{{ $majlis -> name }}">{{ $majlis -> name }}</option>
+										<option  value="{{ $jamath -> id }}">{{ $jamath -> name }}</option>
 									@endif
 								@endforeach
 							</select>
                         </div>
+					</div>
 					
 					<div class="form-group">
                         <label for="address1" class="col-lg-2 control-label">Address 1</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="address1" name="address1" value="{{old('address1')}}" required>
+                            <input type="text" class="form-control" id="address1" name="address1" value="{{old('address1')}}">
                         </div>
                     </div>					
 					

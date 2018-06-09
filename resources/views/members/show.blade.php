@@ -122,7 +122,6 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Subscription Type</th>
 							<th>Year</th>
 							<th>Rate</th>
 							<th>Paid</th>
@@ -130,17 +129,14 @@
 						</tr>
 					</thead>
 					<tbody>
-					@foreach($mainList as $type => $subList1)
-						@foreach($subList1 as $year => $subList2)
+						@foreach($pendingMap as $year => $rate)
 							<tr>
-								<td>{{ $type }}</td>
 								<td>{{ $year }}</td>
-								<td>{{ $subList2['rate'] }}</td>
-								<td>{{ $subList2['paid'] }}</td>
-								<td>{{ $subList2['rate'] - $subList2['paid'] }}</td>
+								<td>{{ $rate }}</td>
+								<td>{{ $paidMap[$year] }}</td>
+								<td>{{ $rate - $paidMap[$year] }}</td>
 							</tr>
 						@endforeach				
-					@endforeach
 					</tbody>
 				</table>		  
 		  </div>
@@ -150,7 +146,6 @@
 					<thead>
 						<tr>
 							<th>Receipt No.</th>
-							<th>Subscription Type</th>
 							<th>Year</th>
 							<th>Amount</th>
 						</tr>
@@ -159,7 +154,6 @@
 					@foreach($receipts as $receipt)
 						<tr>
 							<td>{{ $receipt->receipt_number }}</td>
-							<td>{{ $receipt->type }}</td>
 							<td>{{ $receipt->year }}</td>
 							<td>{{ $receipt->amount }}</td>
 						</tr>

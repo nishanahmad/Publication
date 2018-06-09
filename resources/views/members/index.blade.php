@@ -49,7 +49,7 @@
 						 <tr style ="word-break:break-word;;font-size:15px">
 							<td><a href="/member/{{ $member['id'] }}">{{ $member['code'] }} </a></td>
 							<td>{{ $member['name'] }} </td>
-							<td>{{ $member['majlis'] }} </td>
+							<td>{{ $member->jamath->name }} </td>
 							<td>{{ $member['address1'] }} </td>
 							<td>{{ $member['address2'] }} </td>
 							<td>{{ $member['place'] }} </td>

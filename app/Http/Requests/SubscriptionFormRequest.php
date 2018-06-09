@@ -25,7 +25,9 @@ class MemberSubscriptionFormRequest extends FormRequest
     {
         return [
 			'member' => 'required',
-			'majlis'=> 'required',
+			'jamath_id'=> 'required',
+			'start_year'=> 'required',
+			'start_month'=> 'required',
         ];
     }
 }

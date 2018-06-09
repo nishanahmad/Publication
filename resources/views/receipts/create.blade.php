@@ -5,11 +5,11 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('select[name="majlis"]').on('change', function() {
-				var majlis = $(this).val();
-				if(majlis) {
+			$('select[name="jamath_id"]').on('change', function() {
+				var jamath = $(this).val();
+				if(jamath) {
 					$.ajax({
-						url: '/Majlis/getMembers/'+majlis,
+						url: '/Jamath/getMembers/'+jamath,
 						type: "GET",
 						dataType: "json",
 						success:function(data) {
@@ -26,6 +26,27 @@
 					$('select[name="member"]').empty();
 				}
 			});
+
+			$('select[name="member"]').on('change', function() {
+				var member = $(this).val();
+				if(member) {
+					$.ajax({
+						url: '/Member/getCode/'+member,
+						type: "GET",
+						dataType: "json",
+						success:function(data) {
+
+							
+							$('select[name="member"]').empty();
+							$.each(data, function(key, value) {
+								$('select[name="code"]').append('value="'+ key);
+							});
+						}
+					});
+				}else{
+					$('select[name="code"]').empty();
+				}
+			});			
 		});
 	</script>
     <div class="container col-md-8 col-md-offset-2">
@@ -57,12 +78,12 @@
                         </div>
                     </div>					
 					<div class="form-group">
-                        <label for="majlis" class="col-lg-2 control-label">Jamath</label>
+                        <label for="jamath_id" class="col-lg-2 control-label">Jamath</label>
                         <div class="col-lg-10">
-							<select class="form-control" id="majlis" name="majlis" required>
+							<select class="form-control" id="jamath_id" name="jamath_id" required>
 								<option value=""></option>
-								@foreach ($majlisList->all() as $majlis)
-									<option  value="{{ $majlis -> name }}">{{ $majlis -> name }}</option>
+								@foreach ($jamathList->all() as $jamath)
+									<option  value="{{ $jamath -> id }}">{{ $jamath -> name }}</option>
 								@endforeach
 							</select>
                         </div>
@@ -75,23 +96,6 @@
 							</select>
                         </div>
                     </div>
-
-					<br>
-					<div class="form-group">
-                        <label for="type" class="col-lg-2 control-label">Type</label>
-                        <div class="col-lg-10">
-							<select class="form-control" id="type" name="type" required value="{{old('type')}}">
-								<option  value=""></option>
-								@foreach ($typeList as $type)
-									@if(old('type') == $type)
-										<option  value="{{ $type }}" selected>{{ $type }}</option>
-									@else
-										<option  value="{{ $type }}">{{ $type }}</option>
-									@endif
-								@endforeach
-							</select>
-                        </div>
-                    </div> 
 					
                     <div class="form-group">
                         <label for="amount" class="col-lg-2 control-label">Amount</label>

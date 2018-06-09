@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMemberSubscriptionsTable extends Migration
+class CreateAnnualRatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMemberSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('member_subscriptions', function (Blueprint $table) {
+        Schema::create('annual_rates', function (Blueprint $table) {
             $table->increments('id');
-			$table->integer('member_id');
-			$table->integer('subscription_id');
-			$table->unique(['member_id','subscription_id']);
+			$table->mediumInteger('year')->unique();
+			$table->integer('rate');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateMemberSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('member_subscriptions');
+        Schema::dropIfExists('annual_rates');
     }
 }

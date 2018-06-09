@@ -18,8 +18,6 @@ class CreateReceiptsTable extends Migration
             $table->integer('receipt_number')->unique();
 			$table->mediumInteger('amount');
 			$table->mediumInteger('year');
-			$table->string('magazine',25);
-			$table->string('type',25);			
             $table->integer('member_id');		
 			$table->boolean('accepted');			
 			$table->timestamps();

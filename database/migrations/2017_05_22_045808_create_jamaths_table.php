@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMajlisTable extends Migration
+class CreateJamathsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateMajlisTable extends Migration
      */
     public function up()
     {
-        Schema::create('majlis', function (Blueprint $table) {
-            $table->string('name')->primary();
+        Schema::create('jamaths', function (Blueprint $table) {
+			$table->increments('id');
+            $table->string('name',50) -> unique();
 			$table->timestamps();
         });    
 	}
@@ -26,6 +27,6 @@ class CreateMajlisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('majlis');
+        Schema::dropIfExists('jamath');
     }
 }

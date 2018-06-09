@@ -3,100 +3,148 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\SubscriptionType;
-use App\Subscription;
-use App\MemberSubscription;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Requests\SubscriptionFormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Member;
+use App\Jamath;
+use App\Subscription;
+use App\AnnualRate;
 
 class SubscriptionController extends Controller
 {
-    public function __construct()
+    
+	public function __construct()
     {
-        $this->middleware('auth'); //->except(['index'])
-		$this->middleware('admin') ->except(['index']) ; 
+        $this->middleware('auth');
+		//$this->middleware('admin', ['only' => ['create']]);
     } 	
-
 	
     public function index($year)
     {
-		$subsciptionsDetail = array();
+		$membersDetail = array();
+		$mainList = array();
 		
-		$yearList = Subscription::where('magazine',Auth::user()->magazine_type)
-						->distinct('year')
+		$yearList = AnnualRate::distinct('year')
 						->orderBy('year')
 						->pluck('year');
-		
-		if($year != 'All')
-			$subscriptions =  Subscription::where('magazine',Auth::user()->magazine_type)->where('year',$year)->get();			
-		else
-			$subscriptions =  Subscription::where('magazine',Auth::user()->magazine_type)->get();						
-		
 
-		return view('subscriptions.index',compact('yearList','subscriptions'));         
+		$subscriptions =  Subscription::where(function($query) use ($year){
+								$query->where('start_year', '<=' , $year)
+								->where('end_year', null);
+								})
+								->orWhere(function($query) use ($year){
+								$query->where('start_year', '<=' , $year)
+								->where('end_year', '>=' ,$year);
+								})
+								->get();
+		
+		$members = Member::all();
+		$jamaths = Member::with('jamath');
+		
+		foreach($subscriptions as $subscription)
+		{
+			if(Auth::user()->admin)    // insert members of all majlis for admin
+			{
+				$mainList[$subscription->id]['id'] = $subscription->id;
+				$mainList[$subscription->id]['code'] = $subscription->member->code;									
+				$mainList[$subscription->id]['name'] = $subscription->member->name;
+				$mainList[$subscription->id]['jamath'] = $subscription->member->jamath->name;
+				
+				if($subscription -> start_month != null && $subscription -> start_year == $year)				
+					$mainList[$subscription->id]['start_month'] = date("F", strtotime("2001-" . $subscription -> start_month . "-01"));
+				else
+					$mainList[$subscription->id]['start_month'] = 'January';
+				
+				if($subscription -> end_month != null && $subscription -> end_year == $year)				
+				{
+					$mainList[$subscription->id]['end_month'] =  date("F", strtotime("2001-" . $subscription -> end_month . "-01"));
+				}
+				else
+					$mainList[$subscription->id]['end_month'] = null;
+			}	
+			else
+			{
+				if($subscription->member->jamath->id == Auth::user()->jamath_id)
+				{
+					$mainList[$subscription->id]['id'] = $subscription->id;				
+					$mainList[$subscription->id]['code'] = $subscription->member->code;					
+					$mainList[$subscription->id]['name'] = $subscription->member->name;
+					$mainList[$subscription->id]['jamath'] = $subscription->member->jamath->name;
+					
+					if($subscription -> start_month != null && $subscription -> start_year == $year)				
+						$mainList[$subscription->id]['start_month'] = date("F", strtotime("2001-" . $subscription -> start_month . "-01"));
+					else
+						$mainList[$subscription->id]['start_month'] = 'January';
+					
+					if($subscription -> end_month != null && $subscription -> end_year == $year)				
+					{
+						$mainList[$subscription->id]['end_month'] =  date("F", strtotime("2001-" . $subscription -> end_month . "-01"));
+					}
+					else
+						$mainList[$subscription->id]['end_month'] = null;
+				}	
+			}	
+		}
+		
+		return view('subscriptions.index',compact('mainList','yearList'));
+		
     }
-
 
     public function create()
     {
-		$yearList = array(date("Y")-1,date("Y")+0,date("Y")+1);
-		$typeList = SubscriptionType::where('magazine',Auth::user()->magazine_type)->get();
-		return view('subscriptions.create',compact('typeList','yearList'));
+		$jamathList = array();
+		$memberList = array();
+	
+		$userJamath = Jamath::where('id',Auth::user()->jamath_id)->first();
+		$yearList = AnnualRate::distinct('year')
+						->orderBy('year','desc')
+						->pluck('year');
+		
+		$monthList = array();
+		for($monthNumber = 1; $monthNumber <=12; $monthNumber++)
+		{
+			$monthList[$monthNumber] = date("F", strtotime("2001-" . $monthNumber . "-01"));			
+		}
+		
+		if(Auth::user()->admin)
+			$jamathList = Jamath::all();
+		  else
+			$jamathList = Jamath::where('id',$userJamath->id)->get();
+				
+		return view('subscriptions.create',compact('jamathList','yearList','monthList'));
     }
+	
 
+	
 
     public function store(Request $request)
     {
-		$typeList = SubscriptionType::where('magazine',Auth::user()->magazine_type)->get();
-		$subscriptions = array();
-		foreach($typeList as $type)
-		{
-			$subscription = new Subscription(array(
-			'magazine' => Auth::user()->magazine_type,
-			'type' => $type->type,
-			'year' => $request->get('year'),	
-			'rate' => $request->get($type->type),
-			));
-			array_push($subscriptions,$subscription->toArray());
-		}			
-
-		DB::beginTransaction();
-
+        $subscription = new Subscription(array(
+			'member_id' => $request->get('member'),
+			'start_year' => $request->get('start_year'),
+			'start_month' => $request->get('start_month'),
+			'end_year' => $request->get('end_year'),
+			'end_month' => $request->get('end_month')
+        ));					
 		try
-		{
-			Subscription::insert($subscriptions); // Bulk insert			
+		{	
+			$subscription ->save();	
+			return redirect()->back()->with('status', 'Success!!! The subscription successfully added.');					
 		}
 		catch(\Illuminate\Database\QueryException $e)
 		{
-			DB::rollback();
-			if($e->getMessage())
-			{
-				if (strpos($e->getMessage(), '1062') !== false) 
-					return redirect()->back()->with('status', 'Duplicate error. Subscription rates for the selected year is already found in the database!');
-				else
-					return redirect()->back()->with('status', 'Error!!! Please contact admin -- '.$e->getMessage());					
-			}	
-			else
-				return redirect()->back()->with('status', 'Error!!! Something went wrong please contact admin');								
+			return redirect()->back()->with('status', 'Error!!! Please contact admin -- '.$e->getMessage());									
 		}
-		try
-		{
-			$newMemberSubscriptions = MemberSubscription::insertBulk($subscriptions);
-			MemberSubscription::insert($newMemberSubscriptions);
-		}
-		catch(\Illuminate\Database\QueryException $e)
-		{
-			DB::rollback();
-			return redirect()->back()->with('status', 'Error!!! Please contact admin -- '.$e->getMessage());								
-		}		
-		DB::commit();
-		return redirect()->back()->with('status', 'Successfully updated the subscription rates for the new year!');					
-	}
+    }
 
 
     public function show($id)
     {
-        //
+		$subscription = Subscription::whereId($id)->firstOrFail();
+		$member = $subscription -> member;
+		
+		return view('subscriptions.show', compact('member','subscription'));
     }
 
 

@@ -38,21 +38,28 @@
                                 <th>Jamath</th>
                                 <th style="width:17.5%">Subscription Amount</th>
 								<th style="width:17.5%">Paid Amount</th>
-								<th style="width:17.5%">Bulk Paid</th>
+								<th style="width:17.5%">Receipted Amount</th>
 								<th style="width:17.5%">Balance</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($jamathList as $jamath)
                                 <tr>
-									<td><a href="/Payment/memberPending/{{ $jamath -> name }}">{{ $jamath -> name }} </td>
-									<td>{{ $pendingMap[$jamath -> name] }} </td>
-									<td>{{ $paidMap[$jamath -> name] }} </td>
-									<td>{{ $unaccountedMap[$jamath -> name] }} </td>
-									<td>{{ $pendingMap[$jamath -> name] - $paidMap[$jamath -> name] - $unaccountedMap[$jamath -> name]}}</td>
+									<td><a href="/Payment/memberPending/{{ $jamath -> id }}">{{ $jamath -> name }} </td>
+									<td>{{ $pendingMap[$jamath -> id] }} </td>
+									<td>{{ $jamathReceiptMap[$jamath -> id] }} </td>									
+									<td>{{ $memberReceiptMap[$jamath -> id] }} </td>
+									<td>{{ $pendingMap[$jamath -> id] - $jamathReceiptMap[$jamath -> id]}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
+						<tfoot>
+						<td/>
+						<td>{{ $totalPending }}</td>
+						<td>{{ $totalPaid }}</td>
+						<td/>
+						<td><b>{{ $totalPending - $totalPaid }} </b></td>
+						</tfoot>
                     </table>
                 @endif
             </div>

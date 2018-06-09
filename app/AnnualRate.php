@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SubscriptionType extends Model
+class AnnualRate extends Model
 {
-    //
+    protected $guarded = ['id'];
 }

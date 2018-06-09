@@ -15,12 +15,12 @@ class UpdateMembersTable extends Migration
     {
 		Schema::table('members', function($table) {
 			$table->string('code',15)->unique();
-			$table->string('address1');
+			$table->string('address1') ->nullable();
 			$table->string('address2')->nullable();
 			$table->string('place')->nullable();
 			$table->string('district')->nullable();
 			$table->string('pin_code',10)->nullable();
-			$table->string('rms',25);
+			$table->string('rms',25) ->nullable();
 			$table->string('landline',15)->nullable();
 			$table->string('email')->unique()->nullable();
 			$table->string('ref_name')->nullable();

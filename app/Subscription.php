@@ -8,8 +8,8 @@ class Subscription extends Model
 {
     protected $guarded = ['id'];
 
-    public function MemberSubscriptions()
-    {   
-        return $this->hasMany('App\MemberSubscription');    
+    public function member()
+    {
+        return $this->belongsTo('App\Member');
     }
 }

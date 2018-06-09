@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Majlis extends Model
+class Jamath extends Model
 {
 	protected $fillable = ['name'];
 	
@@ -17,9 +17,4 @@ class Majlis extends Model
 	{
 		return $this->hasMany('App\Member', 'id');
 	}
-	
-	public function houses()
-	{
-		return $this->hasMany('App\House', 'id');
-	}	
 }

@@ -15,11 +15,11 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('magazine',25);
-			$table->string('type',25);
-			$table->smallInteger('year');
-			$table->smallInteger('rate')->nullable();
-			$table->unique(['magazine','type','year']);
+			$table->integer('member_id');
+			$table->mediumInteger('start_year');
+			$table->smallInteger('start_month');
+			$table->mediumInteger('end_year')->nullable();
+			$table->smallInteger('end_month')->nullable();
             $table->timestamps();
         });
     }

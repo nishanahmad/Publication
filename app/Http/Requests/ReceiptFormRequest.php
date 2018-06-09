@@ -24,9 +24,8 @@ class ReceiptFormRequest extends FormRequest
     public function rules()
     {
         return [
-			'majlis'=> 'required',
+			'jamath_id'=> 'required',
 			'member'=> 'required',
-			'type'=> 'required',
 			'year'=> 'required',
 			'amount'=> 'required'
         ];

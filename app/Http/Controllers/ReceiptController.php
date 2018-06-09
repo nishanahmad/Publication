@@ -9,9 +9,9 @@ use App\Http\Requests\ReceiptFormRequest;
 use App\MemberSubscription;
 use App\Receipt;
 use App\Member;
-use App\Majlis;
+use App\Jamath;
 use App\Subscription;
-use App\SubscriptionType;
+use App\AnnualRate;
 include(app_path() . '/libraries/SmsClass.php');
 
 class ReceiptController extends Controller
@@ -112,36 +112,22 @@ class ReceiptController extends Controller
      */
     public function create()
     {
-		$majlisList = array();
+		$jamathList = array();
 		$memberList = array();
 	
-		$userMajlis = Majlis::where('name',Auth::user()->majlis)->first();
-		
-		$typeList = SubscriptionType::where('magazine',Auth::user()->magazine_type)
-					  ->distinct('type')
-					  ->orderBy('type')
-					  ->pluck('type')
-					  ->toArray();
-
-		//Only admin can access sponsorship details
-		if(!Auth::user()-> admin)
-		{
-			if(($key = array_search('Sponsorship', $typeList)) !== false)
-				unset($typeList[$key]);					
-		}	
-
+		$userJamath = Jamath::where('name',Auth::user()->jamath_id)->first();
 					  
-		$yearList = Subscription::distinct('year')
+		$yearList = AnnualRate::distinct('year')
 					  ->orderBy('year')
 					  ->pluck('year');	
 		 
 		
 		if(Auth::user()->admin)
-			$majlisList = Majlis::all();
+			$jamathList = Jamath::all();
 		  else
-			$majlisList = Majlis::where('name',$userMajlis->name)->get();		
+			$jamathList = Jamath::where('id',$userJamath->id)->get();		
 		
-		return view('receipts.create',compact('typeList','yearList','majlisList'));
+		return view('receipts.create',compact('yearList','jamathList'));
     }
 
     /**
@@ -153,47 +139,36 @@ class ReceiptController extends Controller
     public function store(ReceiptFormRequest $request)
     {	
 		// Check if subscription plan exist
-		try 
-		{
-			$subcription = Subscription::where('magazine',Auth::user()-> magazine_type)
-							->where('type',$request->get('type'))
-							->where('year',$request->get('year'))
-							->firstorFail();
-		}
-		catch (ModelNotFoundException $e) 
-		{
-			return redirect()->back()->with('status', 'Error!!!  Please contact admin <br><br> The subscription rate of <b>"'.$request->get("type").'"</b> for <b>'. $request->get("year"). '</b> is not finalised.');					
-		}	
-
-		// Check if Member subscription exist		
-		try 
-		{
-			$memberSubcription = MemberSubscription::where('subscription_id',$subcription->id)
-							->where('member_id',$request->get('member'))
-							->firstorFail();		
-		}					
-		catch (ModelNotFoundException $e) 
-		{
-			return redirect()->back()->with('status', 'Error!!!<br><br> <b>"'.$request->get('type').'"</b> subscription  for <b>'.$request->get('year').'</b> is not found for the selected member.<br>To add new subscription, <b><u><a href="/MemberSubscriptions/create">Click here</a></b></u>');							
-		}
+		$year = $request->get('year');
+		$subscriptions =  Subscription::where(function($query) use ($year){
+								$query->where('start_year', '<=' , $year)
+								->where('end_year', null);
+								})
+								->orWhere(function($query) use ($year){
+								$query->where('start_year', '<=' , $year)
+								->where('end_year', '>=' ,$year);
+								})
+								->get();
+		if($subscriptions -> count() <=0)							
+			return redirect()->back()->with('status', 'Error!!! <br><br> The subscription for the member for <b>'. $year. '</b> is not found.');					
 		
-        $receipt = new Receipt(array(
-            'receipt_number' => $request->get('receipt_no'),
-            //'majlis' => $request->get('majlis'),
-            'member_id' => $request->get('member'),
-            'amount' => $request->get('amount'),
-            'year' => $request->get('year'),
-            'magazine' => Auth::user()-> magazine_type,
-            'type' => $request->get('type'),
-			'accepted' => 0
-        ));
-		try{
-			$receipt -> save();
-			return redirect()->back()->with('status', 'Success!!!<br><br> Receipt inserted successfully!');								
-		}	
-		catch(\Illuminate\Database\QueryException $e){
-			return redirect()->back()->with('status', 'Error!!! Please contact admin with the following error detail :<br><br>'.$e->getMessage());								
-		}				
+		else
+		{
+			$receipt = new Receipt(array(
+				'receipt_number' => $request->get('receipt_no'),
+				'member_id' => $request->get('member'),
+				'amount' => $request->get('amount'),
+				'year' => $request->get('year'),
+				'accepted' => 0
+			));
+			try{
+				$receipt -> save();
+				return redirect()->back()->with('status', 'Success!!!<br><br> Receipt inserted successfully!');								
+			}	
+			catch(\Illuminate\Database\QueryException $e){
+				return redirect()->back()->with('status', 'Error!!! Please contact admin with the following error detail :<br><br>'.$e->getMessage());								
+			}							
+		}
     }
 
     /**

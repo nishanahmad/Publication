@@ -17,8 +17,8 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Subscriptions 
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-					<li><a href="/MemberSubscriptions/create">New Subscription</a></li>
-					<li><a href="/MemberSubscriptions/index/<?php echo date("Y");?>">List Subscriptions</a></li>
+					<li><a href="/Subscriptions/create">New Subscription</a></li>
+					<li><a href="/Subscriptions/index/<?php echo date("Y");?>">List Subscriptions</a></li>
 					</ul>
 				</li>								
                 <li class="dropdown">
@@ -35,8 +35,8 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Annual Rates 
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-					<li><a href="/subscriptions/update">Update Rates</a></li>
-					<li><a href="/subscriptions/index/<?php echo date("Y");?>"">List Rates</a></li>
+					<li><a href="/rates/update">Update Rates</a></li>
+					<li><a href="/rates/index">List Rates</a></li>
 					</ul>
 				</li>				
                 <li><a href="/Payment/jamathPending">Pending Payment</a></li>				

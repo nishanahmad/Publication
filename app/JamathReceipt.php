@@ -10,6 +10,6 @@ class JamathReceipt extends Model
 	
     public function jamath()
     {
-        return $this->belongsTo('App\Majlis');
+        return $this->belongsTo('App\Jamath');
     }	
 }

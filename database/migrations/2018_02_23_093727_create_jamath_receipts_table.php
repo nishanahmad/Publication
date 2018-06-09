@@ -15,7 +15,7 @@ class CreateJamathReceiptsTable extends Migration
     {
         Schema::create('jamath_receipts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('jamath',25);			
+            $table->integer('jamath_id');			
 			$table->integer('amount');			
             $table->timestamps();
         });

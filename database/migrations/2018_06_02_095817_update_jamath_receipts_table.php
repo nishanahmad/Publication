@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateUsersTable extends Migration
+class UpdateJamathReceiptsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-		Schema::table('users', function($table) {
-			$table->boolean('admin');
-			$table->integer('jamath_id');
+		Schema::table('jamath_receipts', function($table) {
+			$table->date('date') -> nullable();
 		});
     }
 

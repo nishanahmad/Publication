@@ -26,13 +26,17 @@ Route::get('/member/{id?}/edit','MembersController@edit');
 Route::post('/member/{id?}/edit','MembersController@update');
 Route::post('/member/{id?}/delete','MembersController@destroy');
 
-Route::get('/subscriptions/index/{year}','SubscriptionController@index');
-Route::get('/subscriptions/update','SubscriptionController@create');
-Route::post('/subscriptions/update','SubscriptionController@store');
+Route::get('/rates/index','AnnualRateController@index');
+Route::get('/rates/update','AnnualRateController@create');
+Route::post('/rates/update','AnnualRateController@store');
 
-Route::get('/MemberSubscriptions/index/{year}','MemberSubscriptionController@index');
-Route::get('/MemberSubscriptions/create','MemberSubscriptionController@create');
-Route::post('/MemberSubscriptions/create','MemberSubscriptionController@store');
+Route::get('/Subscriptions/index/{year}','SubscriptionController@index');
+Route::get('/Subscriptions/create','SubscriptionController@create');
+Route::post('/Subscriptions/create','SubscriptionController@store');
+Route::get('/Subscription/{id?}', 'SubscriptionController@show');
+Route::get('/Subscription/{id?}/edit','SubscriptionController@edit');
+Route::post('/Subscription/{id?}/edit','SubscriptionController@update');
+Route::post('/Subscription/{id?}/delete','SubscriptionController@destroy');
 
 Route::get('/Receipts/index/{year}','ReceiptController@index');
 Route::get('/Receipts/create','ReceiptController@create');
@@ -43,7 +47,7 @@ Route::post('/Receipts/approve','ReceiptController@approve');
 Route::get('/JamathReceipts/create','JamathReceiptController@create');
 Route::post('/JamathReceipts/create','JamathReceiptController@store');
 
-Route::get('Majlis/getMembers/{id}',array('as'=>'majlis.getMembers','uses'=>'MembersController@membersAjax'));
+Route::get('Jamath/getMembers/{id}',array('as'=>'jamath.getMembers','uses'=>'MembersController@membersAjax'));
 
 Route::get('Payment/memberPending/{jamath}','PendingPaymentsController@memberIndex');
 Route::get('Payment/jamathPending','PendingPaymentsController@jamathIndex');
