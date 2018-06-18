@@ -24,60 +24,58 @@ class PendingPaymentsController extends Controller
     public function jamathIndex($year)
     {
 		$pendingMap = array();
-		$annualRates = AnnualRate::where('year',$year);
+		$year = (integer)$year;
 		$totalPending = 0;		
 		
 		$yearList = AnnualRate::distinct('year')
 					  ->orderBy('year')
 					  ->pluck('year');	
 					  
-		foreach($annualRates as $rate)
-		{
-			$year = $rate->year;
-			$rate = $rate->rate;
+		$annualRate = AnnualRate::where('year',$year) ->first();
+		$rate = $annualRate -> rate;
 
-			$subscriptions =  Subscription::where(function($query) use ($year){
-									$query->where('start_year', '<=' , $year)
-									->where('end_year', null);
-									})
-									->orWhere(function($query) use ($year){
-									$query->where('start_year', '<=' , $year)
-									->where('end_year', '>=' ,$year);
-									})
-									->get();				
-			
-			foreach($subscriptions as $subscription)
-			{
-				if(isset($pendingMap[$subscription->member->jamath->id]))
-				{
-					if($subscription -> start_year == $year && $subscription -> end_year == $year)
-						$pendingMap[$subscription->member->jamath->id] = $pendingMap[$subscription->member->jamath->id] + $rate * ($subscription -> end_month - $subscription -> start_month + 1)/12;
-					else if($subscription -> start_year == $year && $subscription -> end_year != $year)
-						$pendingMap[$subscription->member->jamath->id] = $pendingMap[$subscription->member->jamath->id] + $rate * (12 - $subscription -> start_month + 1)/12;		
-					else if($subscription -> start_year != $year && $subscription -> end_year == $year)
-						$pendingMap[$subscription->member->jamath->id] = $pendingMap[$subscription->member->jamath->id] + $rate * ($subscription -> end_month)/12;							
-					else
-						$pendingMap[$subscription->member->jamath->id] = $pendingMap[$subscription->member->jamath->id] + $rate;													
-				}
-					
-				else
-				{
-					if($subscription -> start_year == $year && $subscription -> end_year == $year)
-						$pendingMap[$subscription->member->jamath->id] = $rate * ($subscription -> end_month - $subscription -> start_month + 1)/12;
-					else if($subscription -> start_year == $year && $subscription -> end_year != $year)
-						$pendingMap[$subscription->member->jamath->id] = $rate * (12 - $subscription -> start_month + 1)/12;		
-					else if($subscription -> start_year != $year && $subscription -> end_year == $year)
-						$pendingMap[$subscription->member->jamath->id] = $rate * ($subscription -> end_month)/12;							
-					else
-						$pendingMap[$subscription->member->jamath->id] = $rate;													
-				}				
-			}
-
-			foreach($pendingMap as $jamathId => $amount)
-				$totalPending = $totalPending + $amount;
-		}
 		
-		$receipts = Receipt::where('year',$year);
+		$subscriptions =  Subscription::where(function($query) use ($year){
+								$query->where('start_year', '<=' , $year)
+								->where('end_year', null);
+								})
+								->orWhere(function($query) use ($year){
+								$query->where('start_year', '<=' , $year)
+								->where('end_year', '>=' ,$year);
+								})
+								->get();				
+		
+		foreach($subscriptions as $subscription)
+		{
+			if(isset($pendingMap[$subscription->member->jamath->id]))
+			{
+				if($subscription -> start_year == $year && $subscription -> end_year == $year)
+					$pendingMap[$subscription->member->jamath->id] = $pendingMap[$subscription->member->jamath->id] + $rate * ($subscription -> end_month - $subscription -> start_month + 1)/12;
+				else if($subscription -> start_year == $year && $subscription -> end_year != $year)
+					$pendingMap[$subscription->member->jamath->id] = $pendingMap[$subscription->member->jamath->id] + $rate * (12 - $subscription -> start_month + 1)/12;		
+				else if($subscription -> start_year != $year && $subscription -> end_year == $year)
+					$pendingMap[$subscription->member->jamath->id] = $pendingMap[$subscription->member->jamath->id] + $rate * ($subscription -> end_month)/12;							
+				else
+					$pendingMap[$subscription->member->jamath->id] = $pendingMap[$subscription->member->jamath->id] + $rate;													
+			}
+				
+			else
+			{
+				if($subscription -> start_year == $year && $subscription -> end_year == $year)
+					$pendingMap[$subscription->member->jamath->id] = $rate * ($subscription -> end_month - $subscription -> start_month + 1)/12;
+				else if($subscription -> start_year == $year && $subscription -> end_year != $year)
+					$pendingMap[$subscription->member->jamath->id] = $rate * (12 - $subscription -> start_month + 1)/12;		
+				else if($subscription -> start_year != $year && $subscription -> end_year == $year)
+					$pendingMap[$subscription->member->jamath->id] = $rate * ($subscription -> end_month)/12;							
+				else
+					$pendingMap[$subscription->member->jamath->id] = $rate;													
+			}				
+		}
+
+		foreach($pendingMap as $jamathId => $amount)
+			$totalPending = $totalPending + $amount;
+		
+		$receipts = Receipt::where('year',$year) -> get();
 		foreach($receipts as $receipt)
 		{
 			if(isset($memberReceiptMap[$receipt->member->jamath_id]))
@@ -87,7 +85,7 @@ class PendingPaymentsController extends Controller
 		}
 
 		$jamathReceiptMap = array();
-		$jamathReceipts = JamathReceipt::where('year',$year);
+		$jamathReceipts = JamathReceipt::where('year',$year) -> get();
 		foreach($jamathReceipts as $jamathReceipt)
 		{
 			if(isset($jamathReceiptMap[$jamathReceipt -> jamath_id]))
