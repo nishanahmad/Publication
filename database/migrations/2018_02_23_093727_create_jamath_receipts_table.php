@@ -16,7 +16,8 @@ class CreateJamathReceiptsTable extends Migration
         Schema::create('jamath_receipts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('jamath_id');			
-			$table->integer('amount');			
+			$table->mediumInteger('year');			
+			$table->integer('amount');
             $table->timestamps();
         });
     }

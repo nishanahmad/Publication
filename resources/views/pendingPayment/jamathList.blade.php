@@ -23,10 +23,22 @@
 				@endif
 
                 @if (empty($jamathList))
-					<br>	
+					<br>
                     <p> There is no detail available.</p>
 					<br><br>
-                @else				
+                @else	
+					<div align="center">
+					<select name="year" id="year" onchange="document.location.href = '/Payment/jamathPending/' + this.value">
+                    @foreach($yearList as $year)
+						@if( substr(Request::url(), -4) == $year)
+							<option  value="{{ $year }}" selected >{{ $year }}</option>
+						@else
+							<option  value="{{ $year }}">{{ $year }}</option>
+						@endif
+					@endforeach		
+					</select>
+					</div>
+					
 					<div align="center">
 					<br>
 					<input type="text" style ="width:15%" id="jamath" class="search-input-text textarea" placeholder="Search Jamath..." />&nbsp&nbsp&nbsp

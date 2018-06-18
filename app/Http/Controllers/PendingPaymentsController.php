@@ -21,13 +21,16 @@ class PendingPaymentsController extends Controller
 		//$this->middleware('admin', ['only' => ['create']]);
     } 	
 	
-    public function jamathIndex()
+    public function jamathIndex($year)
     {
 		$pendingMap = array();
-		$members = Member::All();
-		$jamaths = Member::with('jamath');
-		$annualRates = AnnualRate::All();
+		$annualRates = AnnualRate::where('year',$year);
+		$totalPending = 0;		
 		
+		$yearList = AnnualRate::distinct('year')
+					  ->orderBy('year')
+					  ->pluck('year');	
+					  
 		foreach($annualRates as $rate)
 		{
 			$year = $rate->year;
@@ -70,12 +73,11 @@ class PendingPaymentsController extends Controller
 				}				
 			}
 
-			$totalPending = 0;
 			foreach($pendingMap as $jamathId => $amount)
 				$totalPending = $totalPending + $amount;
 		}
 		
-		$receipts = Receipt::All();
+		$receipts = Receipt::where('year',$year);
 		foreach($receipts as $receipt)
 		{
 			if(isset($memberReceiptMap[$receipt->member->jamath_id]))
@@ -84,7 +86,8 @@ class PendingPaymentsController extends Controller
 				$memberReceiptMap[$receipt->member->jamath_id] = $receipt -> amount;
 		}
 
-		$jamathReceipts = JamathReceipt::All();
+		$jamathReceiptMap = array();
+		$jamathReceipts = JamathReceipt::where('year',$year);
 		foreach($jamathReceipts as $jamathReceipt)
 		{
 			if(isset($jamathReceiptMap[$jamathReceipt -> jamath_id]))
@@ -107,7 +110,7 @@ class PendingPaymentsController extends Controller
 			if(!isset($jamathReceiptMap[$jamath -> id]))
 				$jamathReceiptMap[$jamath -> id] = 0;			
 		}
-		return view('pendingPayment/jamathList',compact('pendingMap','jamathReceiptMap','memberReceiptMap','jamathList','totalPending','totalPaid')); 
+		return view('pendingPayment/jamathList',compact('pendingMap','jamathReceiptMap','memberReceiptMap','jamathList','totalPending','totalPaid','yearList')); 
 	}
 	
     public function memberIndex($jamathId)

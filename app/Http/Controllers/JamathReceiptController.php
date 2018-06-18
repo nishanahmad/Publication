@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use App\JamathReceipt;
 use App\Jamath;
+use App\AnnualRate;
 
 class JamathReceiptController extends Controller
 {
@@ -35,7 +36,11 @@ class JamathReceiptController extends Controller
     {
 		$jamathList = Jamath::all();
 		
-		return view('jamathReceipts.create',compact('jamathList'));
+		$yearList = AnnualRate::distinct('year')
+					  ->orderBy('year')
+					  ->pluck('year');	
+					  
+		return view('jamathReceipts.create',compact('jamathList','yearList'));
     }
 
     /**
@@ -48,7 +53,8 @@ class JamathReceiptController extends Controller
     {		
         $jamathReceipt = new JamathReceipt(array(
             'jamath_id' => $request->get('jamath_id'),
-            'amount' => $request->get('amount')
+            'amount' => $request->get('amount'),
+			'year' => $request->get('year')
         ));
 		try{
 			$jamathReceipt -> save();

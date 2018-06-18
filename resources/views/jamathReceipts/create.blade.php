@@ -40,6 +40,23 @@
 					<br>
                     
 					<div class="form-group">
+                        <label for="year" class="col-lg-2 control-label">Year</label>
+                        <div class="col-lg-10">
+							<select class="form-control" id="year" name="year" required value="{{old('year')}}">
+							<option  value=""></option>								
+								@foreach ($yearList->all() as $year)
+									@if(old('year') == $year)
+										<option  value="{{ $year }}" selected>{{ $year }}</option>
+									@else
+										<option  value="{{ $year }}">{{ $year }}</option>
+									@endif
+								@endforeach
+							</select>
+                        </div>
+                    </div> 										
+					
+					
+					<div class="form-group">
                         <label for="amount" class="col-lg-2 control-label">Amount</label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" id="amount"  required name="amount" value="{{old('amount')}}" pattern="[0-9]+" title="Input a valid number">

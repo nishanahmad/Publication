@@ -39,7 +39,7 @@
 					<li><a href="/rates/index">List Rates</a></li>
 					</ul>
 				</li>				
-                <li><a href="/Payment/jamathPending">Pending Payment</a></li>				
+                <li><a href="/Payment/jamathPending/2017">Pending Payment</a></li>				
 			</ul>				
 			<ul class="nav navbar-nav navbar-right">                
 				<li class="dropdown">

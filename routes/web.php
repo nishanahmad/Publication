@@ -50,7 +50,7 @@ Route::post('/JamathReceipts/create','JamathReceiptController@store');
 Route::get('Jamath/getMembers/{id}',array('as'=>'jamath.getMembers','uses'=>'MembersController@membersAjax'));
 
 Route::get('Payment/memberPending/{jamath}','PendingPaymentsController@memberIndex');
-Route::get('Payment/jamathPending','PendingPaymentsController@jamathIndex');
+Route::get('Payment/jamathPending/{year}','PendingPaymentsController@jamathIndex');
 
 Route::get('Test','TestController@test');
 
