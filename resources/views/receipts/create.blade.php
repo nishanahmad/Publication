@@ -25,27 +25,6 @@
 				}else{
 					$('select[name="member"]').empty();
 				}
-			});
-
-			$('select[name="member"]').on('change', function() {
-				var member = $(this).val();
-				if(member) {
-					$.ajax({
-						url: '/Member/getCode/'+member,
-						type: "GET",
-						dataType: "json",
-						success:function(data) {
-
-							
-							$('select[name="member"]').empty();
-							$.each(data, function(key, value) {
-								$('select[name="code"]').append('value="'+ key);
-							});
-						}
-					});
-				}else{
-					$('select[name="code"]').empty();
-				}
 			});			
 		});
 	</script>

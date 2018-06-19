@@ -183,7 +183,8 @@ class MembersController extends Controller
     public function membersAjax($jamath_id)
     {
 		$memberList = array();
-		$members = Member::where('jamath_id',$jamath_id)->get();
+		$memberList[0] = '';
+		$members = Member::where('jamath_id',$jamath_id) ->get();
 		foreach($members->all() as $member)
 			$memberList[$member['id']] = $member->name;
 
