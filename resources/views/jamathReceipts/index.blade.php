@@ -44,7 +44,7 @@
 				<tbody>
 					@foreach($jamathReceipts as $receipt)
 						 <tr style ="word-break:break-word;;font-size:15px">
-							<td>{{ $jamaths[$receipt->jamath_id]->name }} </td>
+							<td>{{ $receipt->jamath_id }} </td>
 							<td>{{ $receipt->amount }} </td>
 							<td>{{ $receipt->year }} </td>
 							<td>{{ $receipt->remarks }} </td>
