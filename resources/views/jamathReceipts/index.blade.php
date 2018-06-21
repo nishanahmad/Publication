@@ -27,9 +27,8 @@
 			
 			<div align="center">
 			<br>
-			<input type="text" style ="width:10%" id="code" class="search-input-text textarea" placeholder="Search code..." />&nbsp&nbsp&nbsp
-			<input type="text" style ="width:10%" id="name" class="search-input-text textarea" placeholder="Search name..." />&nbsp&nbsp&nbsp
-			<input type="text" style ="width:10%" id="majlis" class="search-input-text textarea" placeholder="Search Jamath..." />
+			<input type="text" style ="width:10%" id="jamath" class="search-input-text textarea" placeholder="Search Jamath..." />&nbsp&nbsp&nbsp
+			<input type="text" style ="width:10%" id="year" class="search-input-text textarea" placeholder="Search Year..." />
 			<br><br>
 			</div>
 			<table class="table display compact cell-border" cellspacing="0" id="table">
@@ -64,13 +63,10 @@
 			});
 		 
 			// Apply the search
-			$('#code').keyup(function(){
+			$('#jamath').keyup(function(){
 				table.column(0).search(this.value).draw();
 			})
-			$('#name').keyup(function(){
-				table.column(1).search(this.value).draw();
-			})
-			$('#majlis').keyup(function(){
+			$('#year').keyup(function(){
 				table.column(2).search(this.value).draw();
 			})			
 		} );
