@@ -46,6 +46,7 @@ Route::post('/Receipts/approve','ReceiptController@approve');
 
 Route::get('/JamathReceipts/create','JamathReceiptController@create');
 Route::post('/JamathReceipts/create','JamathReceiptController@store');
+Route::get('/JamathReceipts/index','JamathReceiptController@index');
 
 Route::get('Jamath/getMembers/{id}',array('as'=>'jamath.getMembers','uses'=>'MembersController@membersAjax'));
 
