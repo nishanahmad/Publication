@@ -54,7 +54,8 @@ class JamathReceiptController extends Controller
         $jamathReceipt = new JamathReceipt(array(
             'jamath_id' => $request->get('jamath_id'),
             'amount' => $request->get('amount'),
-			'year' => $request->get('year')
+			'year' => $request->get('year'),
+			'remarks' => $request->get('remarks')
         ));
 		try{
 			$jamathReceipt -> save();

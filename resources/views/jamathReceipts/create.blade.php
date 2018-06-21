@@ -64,6 +64,13 @@
                     </div>
 					
 					<div class="form-group">
+                        <label for="remarks" class="col-lg-2 control-label">Remarks</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="remarks"  name="remarks" value="{{old('remarks')}}">
+                        </div>
+                    </div>					
+					
+					<div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
                             <button type="submit" class="btn btn-primary btn-raised">Submit</button>
                         </div>

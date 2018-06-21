@@ -18,6 +18,7 @@ class CreateJamathReceiptsTable extends Migration
             $table->integer('jamath_id');			
 			$table->mediumInteger('year');			
 			$table->integer('amount');
+			$table->string('remarks',255;
             $table->timestamps();
         });
     }
