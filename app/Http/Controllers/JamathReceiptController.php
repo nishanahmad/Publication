@@ -26,7 +26,7 @@ class JamathReceiptController extends Controller
 		else
 			$jamathReceipts = JamathReceipt::where('jamath_id',Auth::user()->jamath_id)->get();
 
-		$jamaths = Jamath::all();		
+		$jamaths = JamathReceipt::with('jamath');		
 		return view('jamathReceipts.index',compact('jamathReceipts','jamaths'));        
     }
 
