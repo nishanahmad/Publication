@@ -49,6 +49,7 @@ class JamathReceiptController extends Controller
             'jamath_id' => $request->get('jamath_id'),
             'amount' => $request->get('amount'),
 			'year' => $request->get('year'),
+			'date' => date('Y-m-d', strtotime($request->get('date'))),
 			'remarks' => $request->get('remarks')
         ));
 		try{
