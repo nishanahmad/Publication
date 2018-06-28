@@ -4,6 +4,11 @@
 
 <div class="container col-md-8 col-md-offset-2">
 	<div class="well well bs-component">
+		@if (session('status'))
+			<div class="alert alert-success">
+				{{ session('status') }}
+			</div>
+		@endif	
 		<div class="content">
 			<h2 class="header">SubId - {{ $subscription->id }}</h2>
                     <div class="form-group">
@@ -37,7 +42,11 @@
 					<div class="form-group">
                         <label for="endDate" class="col-lg-2 control-label">End On</label>
                         <div class="col-lg-10">
-                            <input type="text" readonly class="form-control" id="endDate" name="endDate" value="{{ date('F', strtotime('2001-' . $subscription -> end_month . '-01')) .' , '. $subscription -> end_year }}">
+							@if (isset($subscription -> end_month))
+								<input type="text" readonly class="form-control" id="endDate" name="endDate" value="{{ date('F', strtotime('2001-' . $subscription -> end_month . '-01')) .' , '. $subscription -> end_year }}">
+							@else
+								<input type="text" readonly class="form-control" id="endDate" name="endDate" value="">
+							@endif
                         </div>
                     </div>																				
 						

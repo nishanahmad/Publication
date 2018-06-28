@@ -150,13 +150,32 @@ class SubscriptionController extends Controller
 
     public function edit($id)
     {
-        //
+		$subscription = Subscription::whereId($id)->firstOrFail();
+		
+		$yearList = AnnualRate::distinct('year')
+						->orderBy('year','desc')
+						->pluck('year');
+		
+		$monthList = array();
+		for($monthNumber = 1; $monthNumber <=12; $monthNumber++)
+		{
+			$monthList[$monthNumber] = date("F", strtotime("2001-" . $monthNumber . "-01"));			
+		}		
+		
+		return view('subscriptions.edit', compact('subscription','yearList','monthList'));        
     }
 
 
-    public function update(Request $request, $id)
+    public function update($id , Request $request)
     {
-        //
+		$subscription = Subscription::whereId($id)->firstOrFail();
+		$subscription->start_month = $request->get('start_month');
+		$subscription->start_year = $request->get('start_year');
+		$subscription->end_month = $request->get('end_month');
+		$subscription->end_year = $request->get('end_year');
+
+		$subscription->save();
+		return redirect('Subscription/'.$id)->with('status', 'Subscription data has been successfully updated!');        
     }
 
 
