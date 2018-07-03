@@ -60,18 +60,6 @@
                             </div>
                         </div>
 						
-                        <div class="form-group">
-                            <label for="magazine_type" class="col-md-4 control-label">Magazine</label>
-
-                            <div class="col-md-6">
-							<select class="form-control" id="magazine_type" name="magazine_type" value="{{old('magazine_type')}}">
-								<option value="Sathyadoothan">Sathyadoothan</option>
-								<option  value="Badr">Badr</option>
-								<option  value="Review Of Religions">Review Of Religions</option>
-							</select>
-                            </div>
-                        </div>
-						
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
