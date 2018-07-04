@@ -13,6 +13,13 @@
                         </div>
                     </div>					
 					
+                    <div class="form-group">
+                        <label for="jamath" class="col-lg-2 control-label">Jamath</label>
+                        <div class="col-lg-10">
+                            <input type="text" readonly class="form-control" id="jamath" name="jamath" value="{{ $member -> jamath -> name }}" required>
+                        </div>
+                    </div>										
+					
 					<div class="form-group">
                         <label for="address1" class="col-lg-2 control-label">Address 1</label>
                         <div class="col-lg-10">

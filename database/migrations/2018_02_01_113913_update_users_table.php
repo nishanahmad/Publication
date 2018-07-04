@@ -14,7 +14,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
 		Schema::table('users', function($table) {
-			$table->boolean('admin');
+			$table->boolean('admin') ->default(0);
 			$table->integer('jamath_id');
 		});
     }

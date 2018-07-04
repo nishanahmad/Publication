@@ -167,7 +167,7 @@ class MembersController extends Controller
 		$member->email = $request->get('email');			
 		$member->ref_name = $request->get('ref_name');
 		$member->ref_phone = $request->get('ref_phone');
-		$member->majlis = $request->get('majlis');		
+		$member->jamath_id = $request->get('jamath_id');		
 
 		$member->save();
 		return redirect()->back()->with('status', 'Member has been successfully updated!');
@@ -175,9 +175,11 @@ class MembersController extends Controller
 	
     public function destroy($id)
     {
+		/*
 		$member = Member::whereId($id)->firstOrFail();
 		$member -> delete();
 		return redirect('members/index');
+		*/
     }			
 	
     public function membersAjax($jamath_id)
