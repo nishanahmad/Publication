@@ -31,21 +31,29 @@
 			<input type="text" style ="width:10%" id="year" class="search-input-text textarea" placeholder="Search Year..." />
 			<br><br>
 			</div>
-			<table class="table display compact cell-border" cellspacing="0" id="table">
+			<table class="table display compact cell-border" cellspacing="0" id="table" style="width:75%">
 				<thead>
 					<tr>
+						<th style ="width:5%">Receipt Id</th>
+						<th style ="width:10%">Date</th>
 						<th style ="width:20%">Jamath</th>
-						<th style ="width:14%">Amount</th>
 						<th style ="width:8%">Year</th>													
+						<th style ="width:14%">Amount</th>
 						<th>Remarks</th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach($jamathReceipts as $receipt)
 						 <tr style ="word-break:break-word;;font-size:15px">
+							<td>{{ $receipt->id }} </td>
+							@if(isset($receipt->date))
+								<td>{{ date("d-m-Y",strtotime($receipt->date)) }}</td>
+							@else
+								<td></td>
+							@endif							
 							<td>{{ $receipt->jamath->name }} </td>
-							<td>{{ $receipt->amount }} </td>
 							<td>{{ $receipt->year }} </td>
+							<td>{{ $receipt->amount }} </td>
 							<td>{{ $receipt->remarks }} </td>
 						</tr>
 					@endforeach
@@ -64,10 +72,10 @@
 		 
 			// Apply the search
 			$('#jamath').keyup(function(){
-				table.column(0).search(this.value).draw();
+				table.column(2).search(this.value).draw();
 			})
 			$('#year').keyup(function(){
-				table.column(2).search(this.value).draw();
+				table.column(3).search(this.value).draw();
 			})			
 		} );
   </script>	
