@@ -159,7 +159,8 @@ class ReceiptController extends Controller
 				'member_id' => $request->get('member'),
 				'amount' => $request->get('amount'),
 				'year' => $request->get('year'),
-				'accepted' => 0
+				'accepted' => 0,
+				'remarks' => $request->get('remarks')
 			));
 			try{
 				$receipt -> save();
