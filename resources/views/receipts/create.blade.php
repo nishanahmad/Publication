@@ -53,7 +53,7 @@
                     <div class="form-group">
                         <label for="receipt_no" class="col-lg-2 control-label">Receipt Number</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="receipt_no"  required name="receipt_no" value="{{old('amount')}}">
+                            <input type="text" class="form-control" id="receipt_no"  name="receipt_no" value="{{old('receipt_no')}}">
                         </div>
                     </div>					
 					<div class="form-group">
