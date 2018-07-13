@@ -64,7 +64,8 @@ class JamathReceiptController extends Controller
 
     public function show($id)
     {
-        //
+		$receipt = JamathReceipt::whereId($id)->firstOrFail();
+        return view('jamathReceipts.show', compact('receipt'));
     }
 
 

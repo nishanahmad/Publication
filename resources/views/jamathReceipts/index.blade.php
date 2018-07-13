@@ -35,7 +35,7 @@
 				<thead>
 					<tr>
 						<th style ="width:5%">Receipt Id</th>
-						<th style ="width:10%">Date</th>
+						<th style ="width:10%">Payment Date</th>
 						<th style ="width:20%">Jamath</th>
 						<th style ="width:8%">Year</th>													
 						<th style ="width:14%">Amount</th>
@@ -45,7 +45,7 @@
 				<tbody>
 					@foreach($jamathReceipts as $receipt)
 						 <tr style ="word-break:break-word;;font-size:15px">
-							<td>{{ $receipt->id }} </td>
+							<td><a href="/JamathReceipt/{{ $receipt->id }}">{{ $receipt->id }} </a></td>
 							@if(isset($receipt->date))
 								<td>{{ date("d-m-Y",strtotime($receipt->date)) }}</td>
 							@else

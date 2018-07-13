@@ -30,7 +30,7 @@ Route::get('/rates/index','AnnualRateController@index');
 Route::get('/rates/update','AnnualRateController@create');
 Route::post('/rates/update','AnnualRateController@store');
 
-Route::get('/Subscriptions/index/{year}','SubscriptionController@index');
+Route::get('/Subscriptions/index','SubscriptionController@index');
 Route::get('/Subscriptions/create','SubscriptionController@create');
 Route::post('/Subscriptions/create','SubscriptionController@store');
 Route::get('/Subscription/{id?}', 'SubscriptionController@show');
@@ -47,6 +47,9 @@ Route::post('/Receipts/approve','ReceiptController@approve');
 Route::get('/JamathReceipts/create','JamathReceiptController@create');
 Route::post('/JamathReceipts/create','JamathReceiptController@store');
 Route::get('/JamathReceipts/index','JamathReceiptController@index');
+Route::get('/JamathReceipt/{id?}','JamathReceiptController@show');
+Route::get('/JamathReceipt/{id?}/edit','JamathReceiptController@edit');
+Route::get('/JamathReceipt/{id?}/delete','JamathReceiptController@destroy');
 
 Route::get('Jamath/getMembers/{id}',array('as'=>'jamath.getMembers','uses'=>'MembersController@membersAjax'));
 

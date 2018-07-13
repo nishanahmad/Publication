@@ -18,7 +18,7 @@
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 					<li><a href="/Subscriptions/create">New Subscription</a></li>
-					<li><a href="/Subscriptions/index/<?php echo date("Y");?>">List Subscriptions</a></li>
+					<li><a href="/Subscriptions/index">List Subscriptions</a></li>
 					</ul>
 				</li>								
                 <li class="dropdown">

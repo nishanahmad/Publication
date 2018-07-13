@@ -20,74 +20,24 @@ class SubscriptionController extends Controller
 		//$this->middleware('admin', ['only' => ['create']]);
     } 	
 	
-    public function index($year)
+    public function index()
     {
-		$membersDetail = array();
-		$mainList = array();
+		$subscriptions = Subscription::all();
+		$monthNames[null] = null;
+		$monthNames[1] = 'Jan';
+		$monthNames[2] = 'Feb';
+		$monthNames[3] = 'Mar';
+		$monthNames[4] = 'Apr';
+		$monthNames[5] = 'May';
+		$monthNames[6] = 'June';
+		$monthNames[7] = 'July';
+		$monthNames[8] = 'Aug';
+		$monthNames[9] = 'Sep';
+		$monthNames[10] = 'Oct';
+		$monthNames[11] = 'Nov';
+		$monthNames[12] = 'Dec';
 		
-		$yearList = AnnualRate::distinct('year')
-						->orderBy('year')
-						->pluck('year');
-
-		$subscriptions =  Subscription::where(function($query) use ($year){
-								$query->where('start_year', '<=' , $year)
-								->where('end_year', null);
-								})
-								->orWhere(function($query) use ($year){
-								$query->where('start_year', '<=' , $year)
-								->where('end_year', '>=' ,$year);
-								})
-								->get();
-		
-		$members = Member::all();
-		$jamaths = Member::with('jamath');
-		
-		foreach($subscriptions as $subscription)
-		{
-			if(Auth::user()->admin)    // insert members of all majlis for admin
-			{
-				$mainList[$subscription->id]['id'] = $subscription->id;
-				$mainList[$subscription->id]['code'] = $subscription->member->code;									
-				$mainList[$subscription->id]['name'] = $subscription->member->name;
-				$mainList[$subscription->id]['jamath'] = $subscription->member->jamath->name;
-				
-				if($subscription -> start_month != null && $subscription -> start_year == $year)				
-					$mainList[$subscription->id]['start_month'] = date("F", strtotime("2001-" . $subscription -> start_month . "-01"));
-				else
-					$mainList[$subscription->id]['start_month'] = 'January';
-				
-				if($subscription -> end_month != null && $subscription -> end_year == $year)				
-				{
-					$mainList[$subscription->id]['end_month'] =  date("F", strtotime("2001-" . $subscription -> end_month . "-01"));
-				}
-				else
-					$mainList[$subscription->id]['end_month'] = null;
-			}	
-			else
-			{
-				if($subscription->member->jamath->id == Auth::user()->jamath_id)
-				{
-					$mainList[$subscription->id]['id'] = $subscription->id;				
-					$mainList[$subscription->id]['code'] = $subscription->member->code;					
-					$mainList[$subscription->id]['name'] = $subscription->member->name;
-					$mainList[$subscription->id]['jamath'] = $subscription->member->jamath->name;
-					
-					if($subscription -> start_month != null && $subscription -> start_year == $year)				
-						$mainList[$subscription->id]['start_month'] = date("F", strtotime("2001-" . $subscription -> start_month . "-01"));
-					else
-						$mainList[$subscription->id]['start_month'] = 'January';
-					
-					if($subscription -> end_month != null && $subscription -> end_year == $year)				
-					{
-						$mainList[$subscription->id]['end_month'] =  date("F", strtotime("2001-" . $subscription -> end_month . "-01"));
-					}
-					else
-						$mainList[$subscription->id]['end_month'] = null;
-				}	
-			}	
-		}
-		
-		return view('subscriptions.index',compact('mainList','yearList'));
+		return view('subscriptions.index',compact('subscriptions','monthNames'));
 		
     }
 

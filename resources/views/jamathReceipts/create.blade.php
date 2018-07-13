@@ -64,7 +64,7 @@
                     </div>
 					
 					<div class="form-group">
-                        <label for="date" class="col-lg-2 control-label">Date</label>
+                        <label for="date" class="col-lg-2 control-label">Payment Date</label>
                         <div class="col-lg-10">
                             <input type="date" class="form-control" id="date"  required  name="date" value="{{old('date')}}">
                         </div>
