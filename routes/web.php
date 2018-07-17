@@ -49,6 +49,7 @@ Route::post('/JamathReceipts/create','JamathReceiptController@store');
 Route::get('/JamathReceipts/index','JamathReceiptController@index');
 Route::get('/JamathReceipt/{id?}','JamathReceiptController@show');
 Route::get('/JamathReceipt/{id?}/edit','JamathReceiptController@edit');
+Route::post('/JamathReceipt/{id?}/edit','JamathReceiptController@update');
 Route::get('/JamathReceipt/{id?}/delete','JamathReceiptController@destroy');
 
 Route::get('Jamath/getMembers/{id}',array('as'=>'jamath.getMembers','uses'=>'MembersController@membersAjax'));

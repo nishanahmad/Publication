@@ -71,13 +71,29 @@ class JamathReceiptController extends Controller
 
     public function edit($id)
     {
-        //
+		$jamathList = Jamath::all();
+		
+		$yearList = AnnualRate::distinct('year')
+					  ->orderBy('year')
+					  ->pluck('year');	
+					  
+		$receipt = JamathReceipt::whereId($id)->firstOrFail();
+
+        return view('jamathReceipts.edit', compact('receipt','yearList','jamathList'));
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+		$jamathReceipt = JamathReceipt::whereId($id)->firstOrFail();
+		$jamathReceipt->jamath_id = $request->get('jamath_id');
+		$jamathReceipt->year = $request->get('year');
+		$jamathReceipt->amount = $request->get('amount');
+		$jamathReceipt->date = $request->get('date');
+		$jamathReceipt->remarks = $request->get('remarks');
+
+		$jamathReceipt->save();
+		return redirect('JamathReceipt/'.$id)->with('status', 'Receipt successfully updated!');
     }
 
 
