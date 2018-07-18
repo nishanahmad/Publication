@@ -38,7 +38,7 @@ Route::get('/Subscription/{id?}/edit','SubscriptionController@edit');
 Route::post('/Subscription/{id?}/edit','SubscriptionController@update');
 Route::post('/Subscription/{id?}/delete','SubscriptionController@destroy');
 
-Route::get('/Receipts/index/{year}','ReceiptController@index');
+Route::get('/Receipts/index','ReceiptController@index');
 Route::get('/Receipts/create','ReceiptController@create');
 Route::post('/Receipts/create','ReceiptController@store');
 Route::get('/Receipts/approve','ReceiptController@unapprovedList');

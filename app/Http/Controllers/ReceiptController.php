@@ -29,7 +29,9 @@ class ReceiptController extends Controller
      */
     public function index()
     {
-        //
+		$receipts = Receipt::all();
+		
+		return view('receipts.index',compact('receipts'));
     }
 	
     public function unApprovedList()

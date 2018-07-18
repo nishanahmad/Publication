@@ -28,6 +28,7 @@
 					<li><a href="/Receipts/create">New Member Receipt</a></li>
 					<li><a href="/JamathReceipts/create">New Jamath Receipt</a></li>
 					<li><a href="/JamathReceipts/index">List Jamath Receipts</a></li>
+					<li><a href="/Receipts/index">List Member Receipts</a></li>
 					<li><a href="/Receipts/approve">Verify & send SMS</a></li>
 					</ul>
 				</li>												
