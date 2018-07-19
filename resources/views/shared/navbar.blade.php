@@ -22,22 +22,20 @@
 					</ul>
 				</li>								
                 <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Receipts 
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Member Receipts 
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 					<li><a href="/Receipts/create">New Member Receipt</a></li>
-					<li><a href="/JamathReceipts/create">New Jamath Receipt</a></li>
-					<li><a href="/JamathReceipts/index">List Jamath Receipts</a></li>
 					<li><a href="/Receipts/index">List Member Receipts</a></li>
 					<li><a href="/Receipts/approve">Verify & send SMS</a></li>
 					</ul>
 				</li>												
                 <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Annual Rates 
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Jamath Receipts 
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-					<li><a href="/rates/update">Update Rates</a></li>
-					<li><a href="/rates/index">List Rates</a></li>
+					<li><a href="/JamathReceipts/create">New Jamath Receipt</a></li>
+					<li><a href="/JamathReceipts/index">List Jamath Receipts</a></li>
 					</ul>
 				</li>				
                 <li><a href="/Payment/jamathPending/2017">Pending Payment</a></li>				
