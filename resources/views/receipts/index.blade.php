@@ -52,7 +52,7 @@
 						 <tr style ="word-break:break-word;;font-size:15px">
 							<td><a href="/receipt/{{ $receipt -> id }}">{{ $receipt -> id }}</a></td>
 							<td>{{ $receipt -> member -> code }} </td>
-							<td>{{ $receipt -> member -> name }} </td>
+							<td><a href="/member/{{ $receipt -> member -> id }}">{{ $receipt -> member -> name }}</a></td>
 							<td>{{ $receipt -> member -> jamath -> name }} </td>
 							<td>{{ $receipt -> amount }} </td>
 							<td>{{ $receipt -> year }} </td>

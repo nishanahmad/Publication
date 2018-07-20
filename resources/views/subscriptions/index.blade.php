@@ -50,7 +50,7 @@
 						 <tr style ="word-break:break-word;;font-size:15px">
 							<td style="text-align:center"><a href="{{ URL::to('Subscription/'.$subscription->id)}}">{{ $subscription->id }}</a></td>
 							<td>{{ $subscription -> member -> code }} </td>
-							<td>{{ $subscription -> member -> name }} </td>
+							<td><a href="/member/{{ $subscription -> member -> id }}">{{ $subscription -> member -> name }}</a></td>
 							<td>{{ $subscription -> member -> jamath -> name }} </td>
 							<td>{{ $monthNames[$subscription -> start_month] . ' , ' .  $subscription -> start_year }} </td>
 							@if (isset($subscription -> end_month))

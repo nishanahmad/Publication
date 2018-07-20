@@ -131,6 +131,10 @@ class SubscriptionController extends Controller
 
     public function destroy($id)
     {
-        //
+		/*
+		$subscription = Subscription::whereId($id)->firstOrFail();
+		$subscription -> delete();
+		return redirect('subscriptions/index');
+		*/
     }
 }
