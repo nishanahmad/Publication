@@ -41,8 +41,12 @@ Route::post('/Subscription/{id?}/delete','SubscriptionController@destroy');
 Route::get('/Receipts/index','ReceiptController@index');
 Route::get('/Receipts/create','ReceiptController@create');
 Route::post('/Receipts/create','ReceiptController@store');
+Route::get('/Receipt/{id?}','ReceiptController@show');
+Route::get('/Receipt/{id?}/edit','ReceiptController@edit');
+Route::post('/Receipt/{id?}/delete','ReceiptController@destroy');
 Route::get('/Receipts/approve','ReceiptController@unapprovedList');
 Route::post('/Receipts/approve','ReceiptController@approve');
+
 
 Route::get('/JamathReceipts/create','JamathReceiptController@create');
 Route::post('/JamathReceipts/create','JamathReceiptController@store');
@@ -50,7 +54,7 @@ Route::get('/JamathReceipts/index','JamathReceiptController@index');
 Route::get('/JamathReceipt/{id?}','JamathReceiptController@show');
 Route::get('/JamathReceipt/{id?}/edit','JamathReceiptController@edit');
 Route::post('/JamathReceipt/{id?}/edit','JamathReceiptController@update');
-Route::get('/JamathReceipt/{id?}/delete','JamathReceiptController@destroy');
+Route::post('/JamathReceipt/{id?}/delete','JamathReceiptController@destroy');
 
 Route::get('Jamath/getMembers/{id}',array('as'=>'jamath.getMembers','uses'=>'MembersController@membersAjax'));
 

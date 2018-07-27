@@ -50,7 +50,7 @@
 				<tbody>
 					@foreach($receipts as $receipt)
 						 <tr style ="word-break:break-word;;font-size:15px">
-							<td><a href="/receipt/{{ $receipt -> id }}">{{ $receipt -> id }}</a></td>
+							<td><a href="/Receipt/{{ $receipt -> id }}">{{ $receipt -> id }}</a></td>
 							<td>{{ $receipt -> member -> code }} </td>
 							<td><a href="/member/{{ $receipt -> member -> id }}">{{ $receipt -> member -> name }}</a></td>
 							<td>{{ $receipt -> member -> jamath -> name }} </td>

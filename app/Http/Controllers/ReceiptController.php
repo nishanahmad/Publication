@@ -16,17 +16,13 @@ include(app_path() . '/libraries/SmsClass.php');
 
 class ReceiptController extends Controller
 {
-	
 	public function __construct()
     {
         $this->middleware('auth');
 		//$this->middleware('admin', ['only' => ['create']]);
     } 		
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+	
     public function index()
     {
 		$receipts = Receipt::all();
@@ -107,11 +103,7 @@ class ReceiptController extends Controller
 		}
     }		
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
 		$jamathList = array();
@@ -132,12 +124,7 @@ class ReceiptController extends Controller
 		return view('receipts.create',compact('yearList','jamathList'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(ReceiptFormRequest $request)
     {	
 		// Check if subscription plan exist
@@ -174,48 +161,32 @@ class ReceiptController extends Controller
 		}
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+	
     public function show($id)
     {
-        //
+		$receipt = Receipt::where('id',$id)->firstOrFail();     
+		
+		return view('receipts.show',compact('receipt'));		
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+	
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+	
     public function destroy($id)
     {
-        //
+		$receipt = Receipt::whereId($id)->firstOrFail();
+		$receipt -> delete();	
+
+		return redirect('Receipts/index');
     }
 }
