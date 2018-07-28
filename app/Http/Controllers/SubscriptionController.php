@@ -70,12 +70,17 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
+		$free_copy = 0;
+		if($request->get('free_copy') != null)
+			$free_copy = 1;
+			
         $subscription = new Subscription(array(
 			'member_id' => $request->get('member'),
 			'start_year' => $request->get('start_year'),
 			'start_month' => $request->get('start_month'),
 			'end_year' => $request->get('end_year'),
-			'end_month' => $request->get('end_month')
+			'end_month' => $request->get('end_month'),
+			'free_copy' => $free_copy
         ));					
 		try
 		{	
@@ -118,11 +123,16 @@ class SubscriptionController extends Controller
 
     public function update($id , Request $request)
     {
+		$free_copy = 0;
+		if($request->get('free_copy') != null)
+			$free_copy = 1;
+		
 		$subscription = Subscription::whereId($id)->firstOrFail();
 		$subscription->start_month = $request->get('start_month');
 		$subscription->start_year = $request->get('start_year');
 		$subscription->end_month = $request->get('end_month');
 		$subscription->end_year = $request->get('end_year');
+		$subscription->free_copy = $free_copy;
 
 		$subscription->save();
 		return redirect('Subscription/'.$id)->with('status', 'Subscription data has been successfully updated!');        

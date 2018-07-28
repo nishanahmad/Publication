@@ -48,7 +48,15 @@
 								<input type="text" readonly class="form-control" id="endDate" name="endDate" value="">
 							@endif
                         </div>
-                    </div>																				
+                    </div>		
+
+					<div class="checkbox" style="float:right;margin:20px;">		
+						@if ($subscription -> free_copy)
+							<label><input type="checkbox" checked disabled name="free_copy" id="free_copy"> Free Copy</label>
+						@else
+							<label><input type="checkbox" disabled name="free_copy" id="free_copy"> Free Copy</label>
+						@endif
+					</div>					
 						
 
 					<br>			

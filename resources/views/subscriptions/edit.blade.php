@@ -96,10 +96,17 @@
                         </div>
                     </div> 															
 					
+					<div class="checkbox" style="float:right;margin:20px;">		
+						@if ($subscription -> free_copy)
+							<label><input type="checkbox" checked name="free_copy" id="free_copy"> Free Copy</label>
+						@else
+							<label><input type="checkbox" name="free_copy" id="free_copy"> Free Copy</label>
+						@endif
+					</div>										
 
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                            <button type="submit" class="btn btn-primary btn-raised">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-raised">Update</button>
                         </div>
                     </div>
 					

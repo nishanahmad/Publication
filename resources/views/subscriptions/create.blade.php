@@ -135,7 +135,11 @@
 							</select>
                         </div>
                     </div> 															
-					
+
+					<div class="checkbox" style="float:right;margin:20px;">		
+						<label><input type="checkbox" name="free_copy" id="free_copy"> Free Copy</label>
+					</div>
+
 
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
