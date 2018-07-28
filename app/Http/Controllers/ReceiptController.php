@@ -172,13 +172,32 @@ class ReceiptController extends Controller
 	
     public function edit($id)
     {
-        //
+		$receipt = Receipt::where('id',$id)->firstOrFail();     
+		$jamathList = Jamath::All();
+		$yearList = AnnualRate::distinct('year')
+					  ->orderBy('year')
+					  ->pluck('year');			
+		
+		return view('receipts.edit',compact('receipt','jamathList','yearList'));		
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+        $receipt = Receipt::where('id',$id)->firstOrFail(); 
+
+		$receipt -> receipt_number = $request->get('receipt_no');
+		$receipt -> amount = $request->get('amount');
+		$receipt -> year = $request->get('year');
+		$receipt -> remarks = $request->get('remarks');		
+		
+		try{
+			$receipt -> save();
+			return redirect('Receipt/'.$receipt -> id)->with('status', 'Success!!!<br><br> Receipt updated successfully!');								
+		}	
+		catch(\Illuminate\Database\QueryException $e){
+			return redirect()->back()->with('status', 'Error!!! Please contact admin with the following error detail :<br><br>'.$e->getMessage());								
+		}									
     }
 
 	

@@ -43,6 +43,7 @@ Route::get('/Receipts/create','ReceiptController@create');
 Route::post('/Receipts/create','ReceiptController@store');
 Route::get('/Receipt/{id?}','ReceiptController@show');
 Route::get('/Receipt/{id?}/edit','ReceiptController@edit');
+Route::post('/Receipt/{id?}/edit','ReceiptController@update');
 Route::post('/Receipt/{id?}/delete','ReceiptController@destroy');
 Route::get('/Receipts/approve','ReceiptController@unapprovedList');
 Route::post('/Receipts/approve','ReceiptController@approve');
