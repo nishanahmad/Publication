@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ReceiptFormRequest;
-use App\MemberSubscription;
 use App\Receipt;
 use App\Member;
 use App\Jamath;

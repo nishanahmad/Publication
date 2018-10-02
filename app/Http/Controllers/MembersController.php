@@ -72,7 +72,6 @@ class MembersController extends Controller
 		{
 			$subscriptionIds[] = $subscription->id;
 		}		
-		
 		$receipts = $member->receipts();
 		$annualRates = AnnualRate::All();
 		

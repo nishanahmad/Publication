@@ -38,6 +38,14 @@
 					<li><a href="/JamathReceipts/index">List Jamath Receipts</a></li>
 					</ul>
 				</li>				
+                <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sponsorships 
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+					<li><a href="/sponsorships/create">New Sponsorship</a></li>
+					<li><a href="/sponsorships/index">List Sponsorships</a></li>
+					</ul>
+				</li>								
                 <li><a href="/Payment/jamathPending/2017">Pending Payment</a></li>				
 			</ul>				
 			<ul class="nav navbar-nav navbar-right">                
