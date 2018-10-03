@@ -53,6 +53,7 @@ class SponsorshipController extends Controller
 			'member_id' => $request->get('member'),
 			'amount' => $request->get('amount'),
 			'year' => $request->get('year'),
+			'date' => date('Y-m-d', strtotime($request->get('date'))),
 			'remarks' => $request->get('remarks')
 		));
 		try{
@@ -75,36 +76,32 @@ class SponsorshipController extends Controller
 	
     public function edit($id)
     {
-		/*
-		$receipt = Receipt::where('id',$id)->firstOrFail();     
+		$sponsorship = Sponsorship::where('id',$id)->firstOrFail();     
 		$jamathList = Jamath::All();
 		$yearList = AnnualRate::distinct('year')
 					  ->orderBy('year')
 					  ->pluck('year');			
 		
-		return view('receipts.edit',compact('receipt','jamathList','yearList'));		
-		*/
+		return view('sponsorships.edit',compact('sponsorship','jamathList','yearList'));		
     }
 
 
     public function update(Request $request, $id)
     {
-		/*
-        $receipt = Receipt::where('id',$id)->firstOrFail(); 
+        $sponsorship = Sponsorship::where('id',$id)->firstOrFail(); 
 
-		$receipt -> receipt_number = $request->get('receipt_no');
-		$receipt -> amount = $request->get('amount');
-		$receipt -> year = $request->get('year');
-		$receipt -> remarks = $request->get('remarks');		
+		$sponsorship -> amount = $request->get('amount');
+		$sponsorship -> year = $request->get('year');
+		$sponsorship -> date = $request->get('date');
+		$sponsorship -> remarks = $request->get('remarks');		
 		
 		try{
-			$receipt -> save();
-			return redirect('Receipt/'.$receipt -> id)->with('status', 'Success!!!<br><br> Receipt updated successfully!');								
+			$sponsorship -> save();
+			return redirect('sponsorship/'.$sponsorship -> id)->with('status', 'Success!!!<br><br> Sponsorship updated successfully!');								
 		}	
 		catch(\Illuminate\Database\QueryException $e){
 			return redirect()->back()->with('status', 'Error!!! Please contact admin with the following error detail :<br><br>'.$e->getMessage());								
 		}
-		*/
     }
 
 	

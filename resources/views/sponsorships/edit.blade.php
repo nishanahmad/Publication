@@ -1,5 +1,5 @@
 @extends('master')
-@section('title', 'Edit Member Receipt')
+@section('title', 'Edit Sponsorship')
 
 @section('content')
     <div class="container col-md-8 col-md-offset-2">
@@ -16,33 +16,26 @@
 
 			<input type="hidden" name="_token" value="{!! csrf_token() !!}">
                 <fieldset>
-                    <legend>Edit Receipt</legend>
-                    
-					<div class="form-group">
-						<label for="receipt_no" class="col-lg-2 control-label">Receipt Number</label>
-						<div class="col-lg-10">
-							<input type="text" class="form-control" id="receipt_no"  name="receipt_no" value="{{$receipt -> receipt_no}}">
-						</div>
-					</div>
+                    <legend>Edit Sponsorship</legend>
 					
 					<div class="form-group">
 						<label for="jamath_id" class="col-lg-2 control-label">Jamath</label>
 						<div class="col-lg-10">
-							<input type="text" readonly class="form-control" id="jamath_id"  name="jamath_id" value="{{$receipt -> member -> jamath -> name}}">
+							<input type="text" readonly class="form-control" id="jamath_id"  name="jamath_id" value="{{$sponsorship -> member -> jamath -> name}}">
 						</div>
 					</div>
 
 					<div class="form-group">
                         <label for="member" class="col-lg-2 control-label">Member</label>
                         <div class="col-lg-10">
-							<input type="text" readonly class="form-control" id="member"  name="member" value="{{$receipt -> member -> name}}">
+							<input type="text" readonly class="form-control" id="member"  name="member" value="{{$sponsorship -> member -> name}}">
                         </div>
                     </div>
 					
 					<div class="form-group">
 						<label for="amount" class="col-lg-2 control-label">Amount</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" id="amount" name="amount" value="{{$receipt -> amount}}">
+							<input type="text" class="form-control" id="amount" name="amount" value="{{$sponsorship -> amount}}">
 						</div>
 					</div>		
 
@@ -51,7 +44,7 @@
                         <div class="col-lg-10">
 							<select class="form-control" id="year" name="year" required>
 								@foreach ($yearList->all() as $year)
-									@if( $receipt -> year == $year)
+									@if( $sponsorship -> year == $year)
 										<option  value="{{ $year }}" selected>{{ $year }}</option>
 									@else
 										<option  value="{{ $year }}">{{ $year }}</option>
@@ -62,9 +55,17 @@
                     </div> 					
 				
 				<div class="form-group">
+					<label for="date" class="col-lg-2 control-label">Payment Date</label>
+					<div class="col-lg-10">
+						<input type="date"  class="form-control" id="date"   name="date" value="{{ $sponsorship -> date }}">
+					</div>
+				</div>					
+
+				
+				<div class="form-group">
 					<label for="remarks" class="col-lg-2 control-label">Remarks</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="remarks" name="remarks" value="{{$receipt -> remarks}}">
+						<input type="text" class="form-control" id="remarks" name="remarks" value="{{$sponsorship -> remarks}}">
 					</div>
 				</div>							
 					

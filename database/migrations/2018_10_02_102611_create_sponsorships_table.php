@@ -19,6 +19,7 @@ class CreateSponsorshipsTable extends Migration
 			$table->integer('member_id');		
 			$table->mediumInteger('amount');
 			$table->mediumInteger('year');
+			$table->date('date') -> nullable();
 			$table->string('remarks',255)->nullable();			
             $table->timestamps();
         });

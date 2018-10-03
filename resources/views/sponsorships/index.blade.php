@@ -42,6 +42,7 @@
 						<th>Member Code</th>							
 						<th>Amount</th>
 						<th>Year</th>
+						<th>Payment Date</th>
 						<th>Remarks</th>
 					</tr>
 				</thead>
@@ -59,6 +60,11 @@
 							@endif	
 							<td>{{ $sponsorship -> amount }} </td>
 							<td>{{ $sponsorship -> year }} </td>
+							@if(isset($sponsorship->date))
+								<td>{{ date("d-m-Y",strtotime($sponsorship->date)) }}</td>
+							@else
+								<td></td>
+							@endif
 							<td>{{ $sponsorship -> remarks }} </td>
 						</tr>
 					@endforeach

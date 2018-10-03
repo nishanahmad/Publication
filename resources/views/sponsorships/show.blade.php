@@ -53,6 +53,14 @@
 				</div> 					
 				
 				<div class="form-group">
+					<label for="date" class="col-lg-2 control-label">Payment Date</label>
+					<div class="col-lg-10">
+						<input type="date" readonly class="form-control" id="date"   name="date" value="{{ $sponsorship -> date }}">
+					</div>
+				</div>					
+				
+				
+				<div class="form-group">
 					<label for="remarks" class="col-lg-2 control-label">Remarks</label>
 					<div class="col-lg-10">
 						<input readonly type="text" class="form-control" id="remarks" name="remarks" value="{{$sponsorship -> remarks}}">
