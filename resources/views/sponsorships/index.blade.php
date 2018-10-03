@@ -37,9 +37,9 @@
 				<thead>
 					<tr>
 						<th>Id</th>							
-						<th>Member Code</th>							
-						<th>Name</th>
 						<th>Jamath</th>
+						<th>Member Name</th>
+						<th>Member Code</th>							
 						<th>Amount</th>
 						<th>Year</th>
 						<th>Remarks</th>
@@ -49,9 +49,14 @@
 					@foreach($sponsorships as $sponsorship)
 						 <tr style ="word-break:break-word;;font-size:15px">
 							<td><a href="/sponsorship/{{ $sponsorship -> id }}">{{ $sponsorship -> id }}</a></td>
-							<td>{{ $sponsorship -> member -> code }} </td>
-							<td><a href="/member/{{ $sponsorship -> member -> id }}">{{ $sponsorship -> member -> name }}</a></td>
-							<td>{{ $sponsorship -> member -> jamath -> name }} </td>
+							<td>{{ $sponsorship -> jamath -> name }} </td>
+							@if(isset($sponsorship -> member))
+								<td>{{ $sponsorship -> member -> code }} </td>
+								<td><a href="/member/{{ $sponsorship -> member -> id }}">{{ $sponsorship -> member -> name }}</a></td>
+							@else
+								<td></td>		
+								<td></td>		
+							@endif	
 							<td>{{ $sponsorship -> amount }} </td>
 							<td>{{ $sponsorship -> year }} </td>
 							<td>{{ $sponsorship -> remarks }} </td>
@@ -82,10 +87,7 @@
 			})			
 			$('#year').keyup(function(){
 				table.column(5).search(this.value).draw();
-			})			
-			$('#receipt').keyup(function(){
-				table.column(6).search(this.value).draw();
-			})						
+			})									
 		} );
   </script>	
 @endsection

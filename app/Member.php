@@ -24,6 +24,11 @@ class Member extends Model
     {   
         return $this->hasMany('App\Receipt')->get();
     }    
+	
+    public function sponsorships()
+    {   
+        return $this->hasMany('App\Sponsorship')->get();
+    }    	
 
     public function pendingPayments()
     {       

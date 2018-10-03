@@ -17,4 +17,9 @@ class Jamath extends Model
 	{
 		return $this->hasMany('App\Member', 'id');
 	}
+	
+	public function sponsorships()
+	{
+		return $this->hasMany('App\Sponsorship', 'id');
+	}	
 }

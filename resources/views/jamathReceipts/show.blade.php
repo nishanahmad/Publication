@@ -45,7 +45,7 @@
 			<form method="post" action="{!! action('JamathReceiptController@destroy', $receipt->id) !!}" class="pull-left">
 				<input type="hidden" name="_token" value="{!! csrf_token() !!}">
 				<div>
-					<button type="submit" class="btn btn-warning">Delete</button>
+					<button type="submit" class="btn btn-warning" onclick="return confirm('Are you sure you want to delete? The action cannot be undone')">Delete</button>
 				</div>
 			</form>				
 			<div class="clearfix"></div>				

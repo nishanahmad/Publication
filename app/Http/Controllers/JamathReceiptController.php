@@ -99,6 +99,9 @@ class JamathReceiptController extends Controller
 
     public function destroy($id)
     {
-        //
+		$jamathReceipt = JamathReceipt::whereId($id)->firstOrFail();
+		$jamathReceipt -> delete();	
+
+		return redirect('JamathReceipts/index');
     }
 }

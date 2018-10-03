@@ -29,6 +29,10 @@ Route::post('/member/{id?}/delete','MembersController@destroy');
 Route::get('sponsorships/index', 'SponsorshipController@index');
 Route::get('sponsorships/create', 'SponsorshipController@create');
 Route::post('sponsorships/create', 'SponsorshipController@insert');
+Route::get('/sponsorship/{id?}', 'SponsorshipController@show');
+Route::get('/sponsorship/{id?}/edit','SponsorshipController@edit');
+Route::post('/sponsorship/{id?}/edit','SponsorshipController@update');
+Route::post('/sponsorship/{id?}/delete','SponsorshipController@destroy');
 
 Route::get('/rates/index','AnnualRateController@index');
 Route::get('/rates/update','AnnualRateController@create');

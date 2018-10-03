@@ -12,4 +12,9 @@ class Sponsorship extends Model
     {
         return $this->belongsTo('App\Member');
     }
+	
+    public function jamath()
+    {
+        return $this->belongsTo('App\Jamath');
+    }	
 }

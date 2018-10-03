@@ -67,11 +67,9 @@ class SponsorshipController extends Controller
 	
     public function show($id)
     {
-		/*
-		$receipt = Receipt::where('id',$id)->firstOrFail();     
+		$sponsorship = Sponsorship::where('id',$id)->firstOrFail();     
 		
-		return view('receipts.show',compact('receipt'));		
-		*/
+		return view('sponsorships.show',compact('sponsorship'));		
     }
 
 	
@@ -112,11 +110,9 @@ class SponsorshipController extends Controller
 	
     public function destroy($id)
     {
-		/*
-		$receipt = Receipt::whereId($id)->firstOrFail();
-		$receipt -> delete();	
+		$sponsorship = Sponsorship::whereId($id)->firstOrFail();
+		$sponsorship -> delete();	
 
-		return redirect('Receipts/index');
-		*/
+		return redirect('sponsorships/index');
     }
 }
