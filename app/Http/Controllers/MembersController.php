@@ -31,7 +31,7 @@ class MembersController extends Controller
 	
     public function create()
     {
-		$jamathList = Jamath::all();
+		$jamathList = Jamath::all()->sortby('name');
 		return view('members.create',compact('jamathList'));
     }
 	
@@ -188,7 +188,7 @@ class MembersController extends Controller
 		$members = Member::where('jamath_id',$jamath_id) ->get();
 		foreach($members->all() as $member)
 			$memberList[$member['id']] = $member->name;
-
+		sort($memberList);
         return ($memberList);
     }	
 }

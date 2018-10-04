@@ -116,7 +116,7 @@ class ReceiptController extends Controller
 		 
 		
 		if(Auth::user()->admin)
-			$jamathList = Jamath::all();
+			$jamathList = Jamath::all()->sortby('name');
 		  else
 			$jamathList = Jamath::where('id',$userJamath->id)->get();		
 		
@@ -172,7 +172,7 @@ class ReceiptController extends Controller
     public function edit($id)
     {
 		$receipt = Receipt::where('id',$id)->firstOrFail();     
-		$jamathList = Jamath::All();
+		$jamathList = Jamath::all()->sortby('name');
 		$yearList = AnnualRate::distinct('year')
 					  ->orderBy('year')
 					  ->pluck('year');			
