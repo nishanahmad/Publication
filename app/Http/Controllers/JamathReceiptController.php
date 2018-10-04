@@ -33,7 +33,7 @@ class JamathReceiptController extends Controller
 
     public function create()
     {
-		$jamathList = Jamath::all();
+		$jamathList = Jamath::all()->sortby('name');
 		
 		$yearList = AnnualRate::distinct('year')
 					  ->orderBy('year')
@@ -71,7 +71,7 @@ class JamathReceiptController extends Controller
 
     public function edit($id)
     {
-		$jamathList = Jamath::all();
+		$jamathList = Jamath::all()->sortby('name');
 		
 		$yearList = AnnualRate::distinct('year')
 					  ->orderBy('year')

@@ -38,7 +38,7 @@ class SponsorshipController extends Controller
 		 
 		
 		if(Auth::user()->admin)
-			$jamathList = Jamath::all();
+			$jamathList = Jamath::all()->sortby('name');
 		  else
 			$jamathList = Jamath::where('id',$userJamath->id)->get();		
 		
@@ -77,7 +77,7 @@ class SponsorshipController extends Controller
     public function edit($id)
     {
 		$sponsorship = Sponsorship::where('id',$id)->firstOrFail();     
-		$jamathList = Jamath::All();
+		$jamathList = Jamath::all()->sortby('name');
 		$yearList = AnnualRate::distinct('year')
 					  ->orderBy('year')
 					  ->pluck('year');			

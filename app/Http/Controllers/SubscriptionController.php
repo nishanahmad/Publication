@@ -58,7 +58,7 @@ class SubscriptionController extends Controller
 		}
 		
 		if(Auth::user()->admin)
-			$jamathList = Jamath::all();
+			$jamathList = Jamath::all()->sortby('name');
 		  else
 			$jamathList = Jamath::where('id',$userJamath->id)->get();
 				
