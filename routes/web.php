@@ -21,49 +21,50 @@ Route::get('test', 'PagesController@test');
 Route::get('members/create', 'MembersController@create');
 Route::post('members/create', 'MembersController@insert');
 Route::get('members/index', 'MembersController@index');
-Route::get('/member/{id?}', 'MembersController@show');
-Route::get('/member/{id?}/edit','MembersController@edit');
-Route::post('/member/{id?}/edit','MembersController@update');
-Route::post('/member/{id?}/delete','MembersController@destroy');
+Route::get('member/{id?}', 'MembersController@show');
+Route::get('member/{id?}/edit','MembersController@edit');
+Route::post('member/{id?}/edit','MembersController@update');
+Route::post('member/{id?}/delete','MembersController@destroy');
+Route::get('member/getCode/{id}','MembersController@getCode');
 
 Route::get('sponsorships/index', 'SponsorshipController@index');
 Route::get('sponsorships/create', 'SponsorshipController@create');
 Route::post('sponsorships/create', 'SponsorshipController@insert');
-Route::get('/sponsorship/{id?}', 'SponsorshipController@show');
-Route::get('/sponsorship/{id?}/edit','SponsorshipController@edit');
-Route::post('/sponsorship/{id?}/edit','SponsorshipController@update');
-Route::post('/sponsorship/{id?}/delete','SponsorshipController@destroy');
+Route::get('sponsorship/{id?}', 'SponsorshipController@show');
+Route::get('sponsorship/{id?}/edit','SponsorshipController@edit');
+Route::post('sponsorship/{id?}/edit','SponsorshipController@update');
+Route::post('sponsorship/{id?}/delete','SponsorshipController@destroy');
 
-Route::get('/rates/index','AnnualRateController@index');
-Route::get('/rates/update','AnnualRateController@create');
-Route::post('/rates/update','AnnualRateController@store');
+Route::get('rates/index','AnnualRateController@index');
+Route::get('rates/update','AnnualRateController@create');
+Route::post('rates/update','AnnualRateController@store');
 
-Route::get('/Subscriptions/index','SubscriptionController@index');
-Route::get('/Subscriptions/create','SubscriptionController@create');
-Route::post('/Subscriptions/create','SubscriptionController@store');
-Route::get('/Subscription/{id?}', 'SubscriptionController@show');
-Route::get('/Subscription/{id?}/edit','SubscriptionController@edit');
-Route::post('/Subscription/{id?}/edit','SubscriptionController@update');
-Route::post('/Subscription/{id?}/delete','SubscriptionController@destroy');
+Route::get('Subscriptions/index','SubscriptionController@index');
+Route::get('Subscriptions/create','SubscriptionController@create');
+Route::post('Subscriptions/create','SubscriptionController@store');
+Route::get('Subscription/{id?}', 'SubscriptionController@show');
+Route::get('Subscription/{id?}/edit','SubscriptionController@edit');
+Route::post('Subscription/{id?}/edit','SubscriptionController@update');
+Route::post('Subscription/{id?}/delete','SubscriptionController@destroy');
 
-Route::get('/Receipts/index','ReceiptController@index');
-Route::get('/Receipts/create','ReceiptController@create');
-Route::post('/Receipts/create','ReceiptController@store');
-Route::get('/Receipt/{id?}','ReceiptController@show');
-Route::get('/Receipt/{id?}/edit','ReceiptController@edit');
-Route::post('/Receipt/{id?}/edit','ReceiptController@update');
-Route::post('/Receipt/{id?}/delete','ReceiptController@destroy');
-Route::get('/Receipts/approve','ReceiptController@unapprovedList');
-Route::post('/Receipts/approve','ReceiptController@approve');
+Route::get('Receipts/index','ReceiptController@index');
+Route::get('Receipts/create','ReceiptController@create');
+Route::post('Receipts/create','ReceiptController@store');
+Route::get('Receipt/{id?}','ReceiptController@show');
+Route::get('Receipt/{id?}/edit','ReceiptController@edit');
+Route::post('Receipt/{id?}/edit','ReceiptController@update');
+Route::post('Receipt/{id?}/delete','ReceiptController@destroy');
+Route::get('Receipts/approve','ReceiptController@unapprovedList');
+Route::post('Receipts/approve','ReceiptController@approve');
 
 
-Route::get('/JamathReceipts/create','JamathReceiptController@create');
-Route::post('/JamathReceipts/create','JamathReceiptController@store');
-Route::get('/JamathReceipts/index','JamathReceiptController@index');
-Route::get('/JamathReceipt/{id?}','JamathReceiptController@show');
-Route::get('/JamathReceipt/{id?}/edit','JamathReceiptController@edit');
-Route::post('/JamathReceipt/{id?}/edit','JamathReceiptController@update');
-Route::post('/JamathReceipt/{id?}/delete','JamathReceiptController@destroy');
+Route::get('JamathReceipts/create','JamathReceiptController@create');
+Route::post('JamathReceipts/create','JamathReceiptController@store');
+Route::get('JamathReceipts/index','JamathReceiptController@index');
+Route::get('JamathReceipt/{id?}','JamathReceiptController@show');
+Route::get('JamathReceipt/{id?}/edit','JamathReceiptController@edit');
+Route::post('JamathReceipt/{id?}/edit','JamathReceiptController@update');
+Route::post('JamathReceipt/{id?}/delete','JamathReceiptController@destroy');
 
 Route::get('Jamath/getMembers/{id}',array('as'=>'jamath.getMembers','uses'=>'MembersController@membersAjax'));
 

@@ -191,4 +191,11 @@ class MembersController extends Controller
 		sort($memberList);
         return ($memberList);
     }	
+	
+    public function getCode($id)
+    {
+		$member = Member::whereId($id)->firstOrFail();
+        $code = json_encode($member -> code); 
+		return ($code);
+    }		
 }

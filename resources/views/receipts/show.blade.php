@@ -43,6 +43,13 @@
 				</div>
 				
 				<div class="form-group">
+					<label for="code" class="col-lg-2 control-label">Member Code</label>
+					<div class="col-lg-10">
+						<input type="text" readonly class="form-control" id="code"  name="code" value="{{$receipt -> member -> code}}">
+					</div>
+				</div>				
+				
+				<div class="form-group">
 					<label for="amount" class="col-lg-2 control-label">Amount</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="amount" readonly name="amount" value="{{$receipt -> amount}}">

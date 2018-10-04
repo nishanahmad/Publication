@@ -36,13 +36,13 @@
 			<table class="table display compact cell-border" cellspacing="0" id="table" style="width:70%">
 				<thead>
 					<tr>
-						<th>Id</th>							
+						<th>Id</th>	
+						<th>Payment Date</th>
 						<th>Jamath</th>
 						<th>Member Name</th>
 						<th>Member Code</th>							
 						<th>Amount</th>
 						<th>Year</th>
-						<th>Payment Date</th>
 						<th>Remarks</th>
 					</tr>
 				</thead>
@@ -50,6 +50,11 @@
 					@foreach($sponsorships as $sponsorship)
 						 <tr style ="word-break:break-word;;font-size:15px">
 							<td><a href="/sponsorship/{{ $sponsorship -> id }}">{{ $sponsorship -> id }}</a></td>
+							@if(isset($sponsorship->date))
+								<td>{{ date("d-m-Y",strtotime($sponsorship->date)) }}</td>
+							@else
+								<td></td>
+							@endif							
 							<td>{{ $sponsorship -> jamath -> name }} </td>
 							@if(isset($sponsorship -> member))
 								<td>{{ $sponsorship -> member -> code }} </td>
@@ -60,11 +65,6 @@
 							@endif	
 							<td>{{ $sponsorship -> amount }} </td>
 							<td>{{ $sponsorship -> year }} </td>
-							@if(isset($sponsorship->date))
-								<td>{{ date("d-m-Y",strtotime($sponsorship->date)) }}</td>
-							@else
-								<td></td>
-							@endif
 							<td>{{ $sponsorship -> remarks }} </td>
 						</tr>
 					@endforeach
