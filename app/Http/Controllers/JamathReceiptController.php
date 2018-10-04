@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use App\JamathReceipt;
+use App\Sponsorship;
 use App\Jamath;
 use App\AnnualRate;
 
@@ -21,13 +22,13 @@ class JamathReceiptController extends Controller
 
     public function index()
     {
-		if(Auth::user()->admin)
-			$jamathReceipts = JamathReceipt::all();
-		else
-			$jamathReceipts = JamathReceipt::where('jamath_id',Auth::user()->jamath_id)->get();
-
+		$jamathReceipts = JamathReceipt::orderBy('id', 'DESC')->get();
+		$sponsorships = Sponsorship::where('member_id', 0)
+						->orWhere('member_id', null)
+						->get();
+		
 		$jamaths = JamathReceipt::with('jamath');		
-		return view('jamathReceipts.index',compact('jamathReceipts','jamaths'));        
+		return view('jamathReceipts.index',compact('jamathReceipts','sponsorships','jamaths'));        
     }
 
 
