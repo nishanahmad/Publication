@@ -185,11 +185,11 @@ class MembersController extends Controller
     {
 		$memberList = array();
 		$memberList[0] = '';
-		$members = Member::where('jamath_id',$jamath_id) ->get();
-		foreach($members->all() as $member)
-			$memberList[$member['id']] = $member->name;
-		sort($memberList);
-        return ($memberList);
+		$members = Member::where('jamath_id',$jamath_id) -> get() -> sortBy('name');
+		foreach($members as $member)
+			$memberList[$member['id'].' '] = $member->name;		// added space to key to prevent json autosort. No other solution found
+        
+		return ($memberList);
     }	
 	
     public function getCode($id)

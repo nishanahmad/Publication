@@ -12,14 +12,12 @@
 						url: '/Jamath/getMembers/'+jamath,
 						type: "GET",
 						dataType: "json",
-						success:function(data) {
-
-							
+						success:function(data) {	
+							console.log(data);
 							$('select[name="member"]').empty();
 							$.each(data, function(key, value) {
 								$('select[name="member"]').append('<option value="'+ key +'">'+ value +'</option>');
 							});
-
 						}
 					});
 				}else{
