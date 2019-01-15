@@ -37,13 +37,13 @@
 				<thead>
 					<tr>
 						<th>Id</th>	
-						<th>Payment Date</th>
+						<th>Date</th>
 						<th>Jamath</th>
-						<th>Member Name</th>
-						<th>Member Code</th>							
+						<th>Code</th>							
+						<th>Name</th>
 						<th>Amount</th>
 						<th>Year</th>
-						<th>Remarks</th>
+						<th style="width:30%;">Remarks</th>
 					</tr>
 				</thead>
 				<tbody>
