@@ -48,8 +48,8 @@ Route::post('Subscription/{id?}/edit','SubscriptionController@update');
 Route::post('Subscription/{id?}/delete','SubscriptionController@destroy');
 
 Route::get('Receipts/index','ReceiptController@index');
-Route::get('Receipts/create','ReceiptController@create');
-Route::post('Receipts/create','ReceiptController@store');
+Route::get('Receipts/create/{member?}/{year?}','ReceiptController@create');
+Route::post('Receipts/create/{member?}/{year?}','ReceiptController@store');
 Route::get('Receipt/{id?}','ReceiptController@show');
 Route::get('Receipt/{id?}/edit','ReceiptController@edit');
 Route::post('Receipt/{id?}/edit','ReceiptController@update');

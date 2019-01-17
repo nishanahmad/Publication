@@ -103,8 +103,11 @@ class ReceiptController extends Controller
     }		
 
 
-    public function create()
+    public function create($memberId = null,$urlYear = null)
     {
+		if($memberId != null)
+			$urlMember = Member::where('id',$memberId)->firstOrFail();
+
 		$jamathList = array();
 		$memberList = array();
 	
@@ -120,7 +123,7 @@ class ReceiptController extends Controller
 		  else
 			$jamathList = Jamath::where('id',$userJamath->id)->get();		
 		
-		return view('receipts.create',compact('yearList','jamathList'));
+		return view('receipts.create',compact('yearList','jamathList','urlMember','urlYear'));
     }
 
 

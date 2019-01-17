@@ -80,7 +80,11 @@
 							<select class="form-control" id="jamath_id" name="jamath_id" required>
 								<option value=""></option>
 								@foreach ($jamathList->all() as $jamath)
-									<option  value="{{ $jamath -> id }}">{{ $jamath -> name }}</option>
+									@if(isset($urlMember) && $urlMember -> jamath -> id == $jamath -> id)
+										<option selected value="{{ $jamath -> id }}">{{ $jamath -> name }}</option>
+									@else
+										<option value="{{ $jamath -> id }}">{{ $jamath -> name }}</option>
+									@endif
 								@endforeach
 							</select>
                         </div>
@@ -90,6 +94,9 @@
                         <label for="member" class="col-lg-2 control-label">Member</label>
                         <div class="col-lg-10">
 							<select class="form-control" id="member" name="member" required>
+							@if(isset($urlMember))
+								<option  selected value="{{ $urlMember -> id }}">{{ $urlMember -> name }}</option>
+							@endif		
 							</select>
                         </div>
                     </div>
@@ -97,7 +104,12 @@
 					<div class="form-group">
                         <label for="code" class="col-lg-2 control-label">Member Code</label>
                         <div class="col-lg-10">
-							<input type="text" readonly class="form-control" id="code" name="code">
+							@if(isset($urlMember))
+								<input type="text" readonly class="form-control" id="code" name="code" value="{{ $urlMember -> code }}">
+							@else
+								<input type="text" readonly class="form-control" id="code" name="code">								
+							@endif
+							
                         </div>
                     </div>					
 					
@@ -115,7 +127,7 @@
 							<select class="form-control" id="year" name="year" required value="{{old('year')}}">
 							<option  value=""></option>								
 								@foreach ($yearList->all() as $year)
-									@if(old('year') == $year)
+									@if($urlYear == $year)
 										<option  value="{{ $year }}" selected>{{ $year }}</option>
 									@else
 										<option  value="{{ $year }}">{{ $year }}</option>
