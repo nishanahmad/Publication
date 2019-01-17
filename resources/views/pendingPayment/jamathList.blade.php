@@ -57,7 +57,7 @@
                         <tbody>
                             @foreach($jamathList as $jamath)
                                 <tr>
-									<td><a href="/Payment/memberPending/{{ $jamath -> id }}/2017">{{ $jamath -> name }} </td>
+									<td><a href="/Payment/memberPending/{{ $jamath -> id }}/{{ substr(Request::url(), -4) }}">{{ $jamath -> name }} </td>
 									<td>{{ $pendingMap[$jamath -> id] }} </td>
 									<td>{{ $jamathReceiptMap[$jamath -> id] }} </td>									
 									<td>{{ $memberReceiptMap[$jamath -> id] }} </td>
