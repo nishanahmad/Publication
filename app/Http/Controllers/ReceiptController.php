@@ -155,7 +155,7 @@ class ReceiptController extends Controller
 			));
 			try{
 				$receipt -> save();
-				return redirect()->back()->with('status', 'Success!!!<br><br> Receipt inserted successfully!');								
+				return redirect('Payment/memberPending/'.$receipt->member->jamath->id.'/'.$receipt->year)->with('status', 'Receipt inserted successfully!!!');								
 			}	
 			catch(\Illuminate\Database\QueryException $e){
 				return redirect()->back()->with('status', 'Error!!! Please contact admin with the following error detail :<br><br>'.$e->getMessage());								
