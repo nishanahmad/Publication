@@ -33,13 +33,14 @@
 			<input type="text" style ="width:10%" id="year" class="search-input-text textarea" placeholder="Search year..." />&nbsp&nbsp&nbsp
 			<br><br>
 			</div>
-			<table class="table display compact cell-border" cellspacing="0" id="table" style="width:70%">
+			<table class="table display compact cell-border" cellspacing="0" id="table" style="width:90%">
 				<thead>
 					<tr>
 						<th>Id</th>	
 						<th>Date</th>
 						<th>Jamath</th>
 						<th>Code</th>							
+						<th>Member</th>
 						<th>Name</th>
 						<th>Amount</th>
 						<th>Year</th>
@@ -55,7 +56,11 @@
 							@else
 								<td></td>
 							@endif							
-							<td>{{ $sponsorship -> jamath -> name }} </td>
+							@if(isset($sponsorship -> jamath))
+								<td>{{ $sponsorship -> jamath -> name }} </td>
+							@else
+								<td></td>		
+							@endif								
 							@if(isset($sponsorship -> member))
 								<td>{{ $sponsorship -> member -> code }} </td>
 								<td><a href="/member/{{ $sponsorship -> member -> id }}">{{ $sponsorship -> member -> name }}</a></td>
@@ -63,6 +68,7 @@
 								<td></td>		
 								<td></td>		
 							@endif	
+							<td>{{ $sponsorship -> name }} </td>
 							<td>{{ $sponsorship -> amount }} </td>
 							<td>{{ $sponsorship -> year }} </td>
 							<td>{{ $sponsorship -> remarks }} </td>

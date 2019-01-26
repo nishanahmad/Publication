@@ -53,7 +53,7 @@
 					<div class="form-group">
                         <label for="jamath_id" class="col-lg-2 control-label">Jamath</label>
                         <div class="col-lg-10">
-							<select class="form-control" id="jamath_id" name="jamath_id" required>
+							<select class="form-control" id="jamath_id" name="jamath_id">
 								<option value=""></option>
 								@foreach ($jamathList->all() as $jamath)
 									<option  value="{{ $jamath -> id }}">{{ $jamath -> name }}</option>
@@ -69,6 +69,13 @@
 							</select>
                         </div>
                     </div>
+					
+					<div class="form-group">
+                        <label for="memberName" class="col-lg-2 control-label">Member Name</label>
+                        <div class="col-lg-10">
+							<input type="text" class="form-control" id="memberName" name="memberName">
+                        </div>
+                    </div>					
 					
                     <div class="form-group">
                         <label for="amount" class="col-lg-2 control-label">Amount</label>

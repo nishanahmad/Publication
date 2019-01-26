@@ -51,6 +51,7 @@ class SponsorshipController extends Controller
 		$sponsorship = new Sponsorship(array(
 			'jamath_id'=> $request->get('jamath_id'),
 			'member_id' => $request->get('member'),
+			'name' => $request->get('memberName'),
 			'amount' => $request->get('amount'),
 			'year' => $request->get('year'),
 			'date' => date('Y-m-d', strtotime($request->get('date'))),
