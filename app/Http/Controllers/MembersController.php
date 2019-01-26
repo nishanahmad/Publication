@@ -97,11 +97,29 @@ class MembersController extends Controller
 					if(isset($pendingMap[$year]))
 					{
 						if($subscription -> start_year == $year && $subscription -> end_year == $year)
-							$pendingMap[$year] = $pendingMap[$year] + $rate * ($subscription -> end_month - $subscription -> start_month + 1)/12;
+						{
+							$months = $subscription -> end_month - $subscription -> start_month + 1;
+							if($months >= 10)
+								$pendingMap[$year] = $pendingMap[$year] + $rate;
+							else
+								$pendingMap[$year] = $pendingMap[$year] + $months * 30;
+						}
 						else if($subscription -> start_year == $year && $subscription -> end_year != $year)
-							$pendingMap[$year] = $pendingMap[$year] + $rate * (12 - $subscription -> start_month + 1)/12;		
+						{
+							$months = 12 - $subscription -> start_month + 1;
+							if($months >= 10)
+								$pendingMap[$year] = $pendingMap[$year] + $rate;
+							else
+								$pendingMap[$year] = $pendingMap[$year] + $months * 30;		
+						}	
 						else if($subscription -> start_year != $year && $subscription -> end_year == $year)
-							$pendingMap[$year] = $pendingMap[$year] + $rate * ($subscription -> end_month)/12;							
+						{
+							$months = $subscription -> end_month;
+							if($months >= 10)
+								$pendingMap[$year] = $pendingMap[$year] + $rate;
+							else
+								$pendingMap[$year] = $pendingMap[$year] + $months * 30;
+						}
 						else
 							$pendingMap[$year] = $pendingMap[$subscription->member->jamath->id] + $rate;													
 					}
@@ -109,11 +127,29 @@ class MembersController extends Controller
 					else
 					{
 						if($subscription -> start_year == $year && $subscription -> end_year == $year)
-							$pendingMap[$year] = $rate * ($subscription -> end_month - $subscription -> start_month + 1)/12;
+						{
+							$months = $subscription -> end_month - $subscription -> start_month + 1;
+							if($months >= 10)
+								$pendingMap[$year] = $rate;
+							else
+								$pendingMap[$year] = $months * 30;
+						}
 						else if($subscription -> start_year == $year && $subscription -> end_year != $year)
-							$pendingMap[$year] = $rate * (12 - $subscription -> start_month + 1)/12;		
+						{
+							$months = 12 - $subscription -> start_month + 1;
+							if($months >= 10)
+								$pendingMap[$year] = $rate;		
+							else
+								$pendingMap[$year] = $months * 30;		
+						}	
 						else if($subscription -> start_year != $year && $subscription -> end_year == $year)
-							$pendingMap[$year] = $rate * ($subscription -> end_month)/12;							
+						{
+							$months = $subscription -> end_month;
+							if($months >= 10)
+								$pendingMap[$year] = $rate;
+							else
+								$pendingMap[$year] = $months * 30;
+						}
 						else
 							$pendingMap[$year] = $rate;													
 					}									
