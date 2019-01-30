@@ -54,9 +54,9 @@
 					<table class="table display compact cell-border" cellspacing="0" id="table">
                         <thead>
                             <tr>
-                                <th style="width:25%">Name</th>
+                                <th style="width:35%">Name</th>
 								<th style="width:15%">Code</th>
-                                <th>Subscription Amount</th>
+                                <th>Subscr Amount</th>
 								<th>Paid Amount</th>
 								<th>Balance</th>
 								<th></th>

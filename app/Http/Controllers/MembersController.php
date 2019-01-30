@@ -121,7 +121,7 @@ class MembersController extends Controller
 								$pendingMap[$year] = $pendingMap[$year] + $months * 30;
 						}
 						else
-							$pendingMap[$year] = $pendingMap[$subscription->member->jamath->id] + $rate;													
+							$pendingMap[$year] = $pendingMap[$year] + $rate;													
 					}
 						
 					else
