@@ -24,6 +24,26 @@
 				$('select[name="member"]').empty();
 			}
 		});
+
+		$('select[name="member"]').on('change', function() {
+			var member = $(this).val();
+			if(member) {
+				$.ajax({
+					url: '/member/getCode/'+member,
+					type: "GET",
+					dataType: "json",
+					success:function(data) {
+						$('#code').val(data);
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						console.warn(xhr.responseText)							
+					}
+
+				});
+			}else{
+				$('#code').empty();
+			}
+		});								
 	});
 	</script>
     <div class="container col-md-8 col-md-offset-2">
@@ -72,6 +92,17 @@
                         </div>
                     </div>
 
+					<div class="form-group">
+                        <label for="code" class="col-lg-2 control-label">Member Code</label>
+                        <div class="col-lg-10">
+							@if(isset($urlMember))
+								<input type="text" readonly class="form-control" id="code" name="code" value="{{ $urlMember -> code }}">
+							@else
+								<input type="text" readonly class="form-control" id="code" name="code">								
+							@endif
+							
+                        </div>
+                    </div>					
 					<br>
 					
 					<div class="form-group">

@@ -85,7 +85,7 @@ class SubscriptionController extends Controller
 		try
 		{	
 			$subscription ->save();	
-			return redirect()->back()->with('status', 'Success!!! The subscription successfully added.');					
+			return redirect('Subscriptions/index')->with('status', 'Success!!! The subscription successfully added.');					
 		}
 		catch(\Illuminate\Database\QueryException $e)
 		{
