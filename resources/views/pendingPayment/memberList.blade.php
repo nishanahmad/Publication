@@ -54,7 +54,8 @@
 					<table class="table display compact cell-border" cellspacing="0" id="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th style="width:25%">Name</th>
+								<th style="width:15%">Code</th>
                                 <th>Subscription Amount</th>
 								<th>Paid Amount</th>
 								<th>Balance</th>
@@ -65,7 +66,8 @@
                             @foreach($members as $member)
                                 <tr>
                                     <td><a href="{{ URL::to('member/'.$member->id)}}">{{ $member->name }}</a></td>
-                                    <td>{{ $pendingMap[$member->id] }} </td>
+                                    <td>{{ $member->code }} </td>
+									<td>{{ $pendingMap[$member->id] }} </td>
 									<td>{{ $paidMap[$member->id] }} </td>
 									<td>{{ $pendingMap[$member->id] - $paidMap[$member->id] }} </td>
 									<td><a href="{{ URL::to('Receipts/create/'.$member->id.'/'.substr(Request::url(), -4))}}" class="btn btn-info" style="margin:0px 0px;padding:4px 15px;">Add Receipt</a></td>
