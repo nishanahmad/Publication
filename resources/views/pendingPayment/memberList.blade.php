@@ -49,6 +49,7 @@
 					<div align="center">
 					<br>
 					<input type="text" style ="width:15%" id="name" class="search-input-text textarea" placeholder="Search Name..." />&nbsp&nbsp&nbsp
+					<input type="text" style ="width:15%" id="code" class="search-input-text textarea" placeholder="Search Code..." />
 					<br><br>
 					</div>					
 					<table class="table display compact cell-border" cellspacing="0" id="table">
@@ -90,6 +91,9 @@
 			$('#name').keyup(function(){
 				table.column(0).search(this.value).draw();
 			})			
+			$('#code').keyup(function(){
+				table.column(1).search(this.value).draw();
+			})						
 		} );
 	</script>	
 @endsection
