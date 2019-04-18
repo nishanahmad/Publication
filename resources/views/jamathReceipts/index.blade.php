@@ -81,8 +81,12 @@
 								<td>{{ date("d-m-Y",strtotime($receipt->date)) }}</td>
 							@else
 								<td></td>
-							@endif							
-							<td>{{ $receipt->jamath->name }} </td>
+							@endif	
+							@if(isset($receipt->jamath))
+								<td>{{ $receipt->jamath->name }} </td>
+							@else
+								<td></td>
+							@endif								
 							<td>{{ $receipt->year }} </td>
 							<td>{{ $receipt->amount }} </td>
 							<td>{{ $receipt->remarks }} </td>

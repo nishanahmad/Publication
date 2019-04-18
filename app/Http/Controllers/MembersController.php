@@ -25,7 +25,7 @@ class MembersController extends Controller
 			$members = Member::all();
 		else
 			$members = Member::where('jamath_id',Auth::user()->jamath_id)->get();
-		$jamaths = Member::with('jamath');		
+		$jamaths = Member::with('jamath');
 		return view('members.index',compact('members','jamaths'));
     }
 	
