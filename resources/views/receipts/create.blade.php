@@ -136,6 +136,13 @@
 							</select>
                         </div>
                     </div> 					
+
+					<div class="form-group">
+                        <label for="date" class="col-lg-2 control-label">Payment Date</label>
+                        <div class="col-lg-10">
+                            <input type="date" class="form-control" id="date"  name="date" value="{{old('date')}}">
+                        </div>
+                    </div>
 					
                     <div class="form-group">
                         <label for="remarks" class="col-lg-2 control-label">Remarks</label>

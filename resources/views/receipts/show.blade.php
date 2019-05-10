@@ -25,7 +25,7 @@
 				<div class="form-group">
 					<label for="receipt_no" class="col-lg-2 control-label">Receipt Number</label>
 					<div class="col-lg-10">
-						<input type="text" readonly class="form-control" id="receipt_no"  name="receipt_no" value="{{$receipt -> receipt_no}}">
+						<input type="text" readonly class="form-control" id="receipt_no"  name="receipt_no" value="{{$receipt -> receipt_number}}">
 					</div>
 				</div>					
 				<div class="form-group">
@@ -63,6 +63,13 @@
 						<input type="text" class="form-control" id="amount" readonly name="year" value="{{$receipt -> year}}">
 					</div>
 				</div> 					
+
+				<div class="form-group">
+					<label for="date" class="col-lg-2 control-label">Payment Date</label>
+					<div class="col-lg-10">
+						<input type="date" readonly class="form-control" id="date"   name="date" value="{{ $receipt -> date }}">
+					</div>
+				</div>					
 				
 				<div class="form-group">
 					<label for="remarks" class="col-lg-2 control-label">Remarks</label>

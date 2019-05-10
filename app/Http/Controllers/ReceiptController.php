@@ -151,6 +151,7 @@ class ReceiptController extends Controller
 				'amount' => $request->get('amount'),
 				'year' => $request->get('year'),
 				'accepted' => 0,
+				'date' => date('Y-m-d', strtotime($request->get('date'))),				
 				'remarks' => $request->get('remarks')
 			));
 			try{
@@ -191,6 +192,7 @@ class ReceiptController extends Controller
 		$receipt -> receipt_number = $request->get('receipt_no');
 		$receipt -> amount = $request->get('amount');
 		$receipt -> year = $request->get('year');
+		$receipt ->date = $request->get('date');
 		$receipt -> remarks = $request->get('remarks');		
 		
 		try{

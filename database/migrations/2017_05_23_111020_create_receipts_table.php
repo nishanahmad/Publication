@@ -18,7 +18,8 @@ class CreateReceiptsTable extends Migration
             $table->string('receipt_number',30)->unique() ->nullable();
 			$table->mediumInteger('amount');
 			$table->mediumInteger('year');
-            $table->integer('member_id');		
+            $table->integer('member_id');
+			$table->date('date') -> nullable();			
 			$table->boolean('accepted');
 			$table->string('remarks',255)->nullable();			
 			$table->timestamps();

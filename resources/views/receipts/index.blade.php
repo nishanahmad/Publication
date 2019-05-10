@@ -44,6 +44,7 @@
 						<th>Amount</th>
 						<th>Year</th>
 						<th>Receipt No.</th>						
+						<th>Payment Date</th>
 						<th>Remarks</th>
 					</tr>
 				</thead>
@@ -57,6 +58,11 @@
 							<td>{{ $receipt -> amount }} </td>
 							<td>{{ $receipt -> year }} </td>
 							<td>{{ $receipt -> receipt_number }} </td>
+							@if(isset($receipt->date))
+								<td>{{ date("d-m-Y",strtotime($receipt->date)) }}</td>
+							@else
+								<td></td>
+							@endif
 							<td>{{ $receipt -> remarks }} </td>
 						</tr>
 					@endforeach
