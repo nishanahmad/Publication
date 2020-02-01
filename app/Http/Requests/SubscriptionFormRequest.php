@@ -24,7 +24,7 @@ class MemberSubscriptionFormRequest extends FormRequest
     public function rules()
     {
         return [
-			'member' => 'required',
+			'member_id' => 'required',
 			'jamath_id'=> 'required',
 			'start_year'=> 'required',
 			'start_month'=> 'required',
